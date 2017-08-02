@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>eif-ftc</artifactId>
+        <groupId>com.eif.ftc</groupId>
+        <version>2.5-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>eif-ftc-facade</artifactId>
+    <packaging>jar</packaging>
+    <name>Facade Layer</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.eif.framework</groupId>
+            <artifactId>eif-framework-common-utils</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.3</version>
+				<configuration>			
+					<doclet>com.eif.dochelp.HtmlDoclet</doclet>
+					<docletArtifact>
+						<groupId>com.eif.dochelp</groupId>
+						<artifactId>eif-dochelp</artifactId>
+						<version>1.0.1</version>
+					</docletArtifact>
+					<useStandardDocletOptions>false</useStandardDocletOptions><!-- important ! -->
+					<additionalparam>
+                        -systemname ${eif.dochelp.systemname}
+                        -branchname ${eif.dochelp.branchname}
+                        -encoding utf-8
+                        -charset utf-8
+                        -d ${project.basedir}/target/apidocs
+                        -searchengine ${eif.dochelp.searchengine}
+						-dubboconfigpath ${project.basedir}/../eif-ftc-biz/src/main/resources/spring/applicationContext-dubbo-provider.xml
+					</additionalparam>
+				</configuration>
+			</plugin>
+        </plugins>
+    </build>
+</project>

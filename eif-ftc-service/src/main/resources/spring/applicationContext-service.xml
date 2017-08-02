@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:cache="http://www.springframework.org/schema/cache" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/jdbc
+	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd 
+	http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-lazy-init="false">
+
+	<!-- 只扫描自己模块对应的包 -->
+	<context:component-scan base-package="com.eif.ftc.service" />
+
+	<!-- 注解式事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<bean id="fundOrderScanService" name="fundTransService" class="com.eif.ftc.service.trans.impl.FundOrderExpiredServiceImpl" >
+		<property name="orderScanPageSize" value="${app.order.scan.page.size}"/>
+	</bean>
+	<!-- 拦截所有Service方法，依次执行Service拦截器、读写拦截器、事务拦截器 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>readWriteInterceptor</value>
+				<value>transactionInterceptor</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="redisConcurrentLock" class="com.eif.framework.concurrent.lock.RedisConcurrentLock">
+		<property name="hadesClient" ref="hadesClient" />
+	</bean>
+	
+	<bean id="exchangeConfig" class="com.eif.ftc.service.transfer.exchange.ExchangeConfig">
+		<property name="transferDomain" value="${exchange.transfer.domain}" />
+		<property name="accessId" value="${exchange.transfer.accessId}" />
+		<property name="accessKey" value="${exchange.transfer.accessKey}" />
+		<property name="applyUrl" value="${exchange.transfer.applyUrl}" />
+	</bean>	
+	
+</beans>

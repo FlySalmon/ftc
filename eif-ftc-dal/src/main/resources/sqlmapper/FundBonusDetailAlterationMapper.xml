@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundBonusDetailAlterationMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundBonusDetailAlteration">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="bonus_alteration_uuid" jdbcType="CHAR" property="bonusAlterationUuid" />
+    <result column="fund_detail_id" jdbcType="BIGINT" property="fundDetailId" />
+    <result column="fund_detail_uuid" jdbcType="CHAR" property="fundDetailUuid" />
+    <result column="fund_total_id" jdbcType="BIGINT" property="fundTotalId" />
+    <result column="fund_total_uuid" jdbcType="CHAR" property="fundTotalUuid" />
+    <result column="ftc_order_no" jdbcType="CHAR" property="ftcOrderNo" />
+    <result column="fund_bonus_amount" jdbcType="DECIMAL" property="fundBonusAmount" />
+    <result column="bonus_time" jdbcType="TIMESTAMP" property="bonusTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="bonus_type" jdbcType="INTEGER" property="bonusType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, bonus_alteration_uuid, fund_detail_id, fund_detail_uuid, fund_total_id, fund_total_uuid, 
+    ftc_order_no, fund_bonus_amount, bonus_time, create_time, update_time, bonus_type
+  </sql>
+    <select id="selectBonusListByDetailUUID" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_amc_fund_bonus_detail_alteration
+        where fund_detail_uuid = #{fundDetailUUID,jdbcType=CHAR}
+        and bonus_time <![CDATA[ >= ]]> #{beginDate,jdbcType=TIMESTAMP}
+        and bonus_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}
+        and bonus_type in (0,2)
+    </select>
+
+    <select id="selectBonusListByFundTotalUUID" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from t_amc_fund_bonus_detail_alteration
+        where fund_total_uuid = #{fundTotalUUID,jdbcType=CHAR}
+        and bonus_time <![CDATA[ >= ]]> #{beginDate,jdbcType=TIMESTAMP}
+        and bonus_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}
+        and bonus_type in (0,2)
+    </select>
+    <select id="selectBonusCountDetailUUID" resultType="java.lang.Integer">
+        select
+        count(*)
+        from t_amc_fund_bonus_detail_alteration
+        where fund_detail_uuid = #{fundDetailUUID,jdbcType=CHAR}
+        and bonus_type in (0,2)
+    </select>
+</mapper>

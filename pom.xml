@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+        <groupId>com.eif.framework</groupId>
+        <artifactId>eif-framework-plugin-pom</artifactId>
+        <version>1.4.3</version>
+    </parent>
+    
+	<groupId>com.eif.ftc</groupId>
+	<artifactId>eif-ftc</artifactId>
+	<version>2.5-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>eif-ftc</name>
+
+	<properties>
+		<!-- maven -->
+		<mybatis-generator-maven-plugin.version>1.3.2</mybatis-generator-maven-plugin.version>
+		<java.version>1.7</java.version>
+		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<mysql.version>5.1.25</mysql.version>
+		<mapper.version>3.8.2</mapper.version>
+		<packaging.all>war</packaging.all>
+		<sonar.exclusions>eif-ftc-dal/src/main/java/com/eif/ftc/dal/model/*,eif-ftc-dal/src/main/java/com/eif/ftc/dal/dao/*,eif-ftc-service/src/test/java/com/eif/ftc/service/test/*</sonar.exclusions>
+
+		<!-- self -->
+		<eif.ftc.dal.version>2.5-SNAPSHOT</eif.ftc.dal.version>
+		<eif.ftc.facade.version>2.5-SNAPSHOT</eif.ftc.facade.version>
+		<eif.ftc.integration.version>2.5-SNAPSHOT</eif.ftc.integration.version>
+		<eif.ftc.util.version>2.5-SNAPSHOT</eif.ftc.util.version>
+		<eif.ftc.service.version>2.5-SNAPSHOT</eif.ftc.service.version>
+		<eif.ftc.biz.version>2.5-SNAPSHOT</eif.ftc.biz.version>
+		<eif.ftc.test.version>2.5-SNAPSHOT</eif.ftc.test.version>
+		<eif.ftc.web.version>2.5-SNAPSHOT</eif.ftc.web.version>
+
+		<!-- depends facade -->
+		<eif.member.facade.version>2.4</eif.member.facade.version>
+		<eif.fis.facade.version>2.4</eif.fis.facade.version>
+		<eif.transcore.facade.version>2.3</eif.transcore.facade.version>
+		<eif.ofc.facade.version>2.3</eif.ofc.facade.version>
+		<eif.contract.facade.version>2.4</eif.contract.facade.version>
+		<eif.paycore.facade.version>2.4</eif.paycore.facade.version>
+		<eif.market.facade.version>2.4</eif.market.facade.version>
+		<eif.goutong.facade.version>2.5-SNAPSHOT</eif.goutong.facade.version>
+		<eif.risk.facade.version>2.4</eif.risk.facade.version>
+		<eif.setting.facade.version>2.3</eif.setting.facade.version>
+		<eif.inspection.facade.version>2.4</eif.inspection.facade.version>
+
+		<!-- eif framework -->
+		<eif.framework.version>1.4.3</eif.framework.version>
+		<eif.framework.test.version>1.4.3</eif.framework.test.version>
+
+		<!-- doc help -->
+		<eif.dochelp.systemname>eif-ftc</eif.dochelp.systemname>
+		<eif.dochelp.branchname>master</eif.dochelp.branchname>
+		<eif.dochelp.searchengine>http://120.26.85.179:99/solr/apidocs</eif.dochelp.searchengine>
+		<apollo.version>1.0.12</apollo.version>
+		<skip.it>false</skip.it>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- ====================depends======================== -->
+			<dependency>
+				<groupId>com.eif.member</groupId>
+				<artifactId>eif-member-facade</artifactId>
+				<version>${eif.member.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.ofc</groupId>
+				<artifactId>eif-ofc-facade</artifactId>
+				<version>${eif.ofc.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.fis</groupId>
+				<artifactId>eif-fis-facade</artifactId>
+				<version>${eif.fis.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.contract</groupId>
+				<artifactId>eif-contract-facade</artifactId>
+				<version>${eif.contract.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.transcore</groupId>
+				<artifactId>eif-transcore-facade</artifactId>
+				<version>${eif.transcore.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.paycore</groupId>
+				<artifactId>eif-paycore-facade</artifactId>
+				<version>${eif.paycore.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.market</groupId>
+				<artifactId>eif-market-facade</artifactId>
+				<version>${eif.market.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.goutong</groupId>
+				<artifactId>eif-goutong-facade</artifactId>
+				<version>${eif.goutong.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.risk</groupId>
+				<artifactId>eif-risk-facade</artifactId>
+				<version>${eif.risk.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.setting</groupId>
+				<artifactId>eif-setting-facade</artifactId>
+				<version>${eif.setting.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.inspection</groupId>
+				<artifactId>eif-inspection-facade</artifactId>
+				<version>${eif.inspection.facade.version}</version>
+			</dependency>
+			<!-- ====================self======================== -->
+			<dependency>
+				<groupId>com.eif.ftc</groupId>
+				<artifactId>eif-ftc-dal</artifactId>
+				<version>${eif.ftc.dal.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.ftc</groupId>
+				<artifactId>eif-ftc-facade</artifactId>
+				<version>${eif.ftc.facade.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.ftc</groupId>
+				<artifactId>eif-ftc-biz</artifactId>
+				<version>${eif.ftc.biz.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.ftc</groupId>
+				<artifactId>eif-ftc-integration</artifactId>
+				<version>${eif.ftc.integration.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.ftc</groupId>
+				<artifactId>eif-ftc-util</artifactId>
+				<version>${eif.ftc.util.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.ftc</groupId>
+				<artifactId>eif-ftc-service</artifactId>
+				<version>${eif.ftc.service.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.ftc</groupId>
+				<artifactId>eif-ftc-test</artifactId>
+				<version>${eif.ftc.test.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.ftc</groupId>
+				<artifactId>eif-ftc-web</artifactId>
+				<version>${eif.ftc.web.version}</version>
+			</dependency>
+
+			<!-- ====================eif framework======================== -->
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-pom</artifactId>
+				<version>${eif.framework.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-config</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-cache</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-rpc</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-mq</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-job</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-fs</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-common-utils</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-data</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-log</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-mybatis-pagination</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-test</artifactId>
+				<scope>test</scope>
+				<version>${eif.framework.test.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.eif.framework</groupId>
+				<artifactId>eif-framework-concurrent</artifactId>
+				<version>${eif.framework.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<modules>
+		<module>eif-ftc-util</module>
+		<module>eif-ftc-dal</module>
+		<module>eif-ftc-facade</module>
+		<module>eif-ftc-integration</module>
+		<module>eif-ftc-service</module>
+		<module>eif-ftc-biz</module>
+		<module>eif-ftc-test</module>
+		<module>eif-ftc-web</module>
+	</modules>
+
+</project>

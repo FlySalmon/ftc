@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.MemberFundAccountMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.MemberFundAccount">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="fund_acc_uuid" jdbcType="CHAR" property="fundAccUuid" />
+    <result column="ftc_create_acc_no" jdbcType="CHAR" property="ftcCreateAccNo" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="channel_no" jdbcType="INTEGER" property="channelNo" />
+    <result column="transaction_account" jdbcType="CHAR" property="transactionAccount" />
+    <result column="ta_company_no" jdbcType="BIGINT" property="taCompanyNo" />
+    <result column="account_status" jdbcType="INTEGER" property="accountStatus" />
+    <result column="ta_account" jdbcType="CHAR" property="taAccount" />
+    <result column="ftc_create_time" jdbcType="TIMESTAMP" property="ftcCreateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="account_risk_status" jdbcType="INTEGER" property="accountRiskStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, fund_acc_uuid, ftc_create_acc_no, member_no, channel_no, transaction_account, 
+    ta_company_no, account_status, ta_account, ftc_create_time, create_time, update_time, 
+    account_risk_status
+  </sql>
+  <select id="selectByAccountNo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_mem_fund_acc
+    where fund_acc_uuid = #{account_uuid,jdbcType=CHAR}
+  </select>
+  <select id="selectByMemberNo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_mem_fund_acc
+    where member_no = #{member_no,jdbcType=CHAR}
+  </select>
+
+  <select id="selectByFTCOrderNo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_mem_fund_acc
+    where ftc_create_acc_no = #{ftc_order_no,jdbcType=CHAR}
+  </select>
+
+  <select id="selectByTransactionAccontAndTaAccount" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_mem_fund_acc
+    where transaction_account = #{transactionAccount,jdbcType=CHAR}
+    and ta_account = #{taAccount,jdbcType=CHAR}
+  </select>
+  
+  <select id="selectByMemberNos" resultMap="BaseResultMap">
+    select
+    	<include refid="Base_Column_List" />
+    from t_amc_mem_fund_acc
+    where member_no in 
+    	<foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+			#{item, jdbcType=CHAR}
+		</foreach>
+  </select>
+  
+  <update id="batchUpdateFundAccountByOrderNo" parameterType="java.util.List">
+	<foreach close="" collection="list" index="index" item="record" open="" separator=";">
+		update t_amc_mem_fund_acc
+		<set>
+			<if test="record.taAccount != null">
+				ta_account = #{record.taAccount,jdbcType=CHAR},
+			</if>
+			<if test="record.accountStatus != null">
+				account_status = #{record.accountStatus,jdbcType=INTEGER},
+			</if>
+			update_time = now()
+		</set>
+		where ftc_create_acc_no = #{record.ftcCreateAccNo,jdbcType=CHAR}
+	</foreach>
+  </update>
+  
+</mapper>

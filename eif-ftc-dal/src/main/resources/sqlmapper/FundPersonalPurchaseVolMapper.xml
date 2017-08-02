@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.eif.ftc.dal.dao.FundPersonalPurchaseVolMapper" >
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundPersonalPurchaseVol" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="product_id" property="productId" jdbcType="BIGINT" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="shares" property="shares" jdbcType="DECIMAL" />
+    <result column="member_no" property="memberNo" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, product_id, amount, shares, member_no
+  </sql>
+
+  <update id="updateAmountForLimitation">
+    UPDATE t_ftc_fund_personal_purchase_vol
+    SET amount=amount+#{fundTransAmount, jdbcType=DECIMAL}
+    WHERE amount+#{fundTransAmount,jdbcType=DECIMAL} <![CDATA[ <= ]]> #{limitBuyAmt,jdbcType=DECIMAL}
+    AND member_no=#{memberNo,jdbcType=CHAR}
+    AND product_id=#{productId,jdbcType=BIGINT}
+  </update>
+  <update id="updateSharesForLimitation">
+    UPDATE t_ftc_fund_personal_purchase_vol
+    SET shares=shares+#{fundTransShares, jdbcType=DECIMAL}
+    WHERE shares+#{fundTransShares,jdbcType=DECIMAL} <![CDATA[ <= ]]> #{limitBuyAmt,jdbcType=DECIMAL}
+    AND member_no=#{memberNo,jdbcType=CHAR}
+    AND product_id=#{productId,jdbcType=BIGINT}
+  </update>
+  <update id="deductShares">
+    UPDATE t_ftc_fund_personal_purchase_vol
+    SET shares = shares - #{fundTransShares, jdbcType=DECIMAL}
+    WHERE member_no =#{memberNo,jdbcType=CHAR}
+    AND product_id =#{productId,jdbcType=BIGINT}
+  </update>
+  <update id="deductAmount">
+    UPDATE t_ftc_fund_personal_purchase_vol
+    SET amount = amount - #{fundTransAmount, jdbcType=DECIMAL}
+    WHERE product_id =#{productId,jdbcType=BIGINT}
+    AND member_no =#{memberNo,jdbcType=CHAR}
+  </update>
+  <insert id="insertAmount">
+    INSERT IGNORE INTO t_ftc_fund_personal_purchase_vol (member_no,
+    product_id, amount)
+    VALUES (#{memberNo, jdbcType=CHAR}, #{productId,jdbcType=BIGINT},
+    #{fundTransAmount,jdbcType=DECIMAL}
+    )
+  </insert>
+  <insert id="insertShares">
+    INSERT IGNORE INTO t_ftc_fund_personal_purchase_vol (member_no,
+    product_id, shares)
+    VALUES (#{memberNo, jdbcType=CHAR}, #{productId,jdbcType=BIGINT},
+    #{fundTransShares,jdbcType=DECIMAL}]
+    )
+  </insert>
+</mapper>

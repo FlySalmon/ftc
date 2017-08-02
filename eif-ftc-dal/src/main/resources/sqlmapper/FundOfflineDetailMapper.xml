@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundOfflineDetailMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundOfflineDetail">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="fund_offline_detail_uuid" jdbcType="CHAR" property="fundOfflineDetailUuid" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="fund_total_amount" jdbcType="DECIMAL" property="fundTotalAmount" />
+    <result column="total_profit" jdbcType="DECIMAL" property="totalProfit" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="bonus_total_amount" jdbcType="DECIMAL" property="bonusTotalAmount" />
+    <result column="profit_total_amount" jdbcType="DECIMAL" property="profitTotalAmount" />
+    <result column="settlement_time" jdbcType="TIMESTAMP" property="settlementTime" />
+    <result column="has_settlement" jdbcType="INTEGER" property="hasSettlement" />
+    <result column="settlement_capital" jdbcType="DECIMAL" property="settlementCapital" />
+    <result column="offline_code" jdbcType="CHAR" property="offlineCode" />
+    <result column="customer_phone" jdbcType="CHAR" property="customerPhone" />
+    <result column="customer_name" jdbcType="CHAR" property="customerName" />
+    <result column="customer_cardno" jdbcType="CHAR" property="customerCardno" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="inception_date" jdbcType="TIMESTAMP" property="inceptionDate" />
+    <result column="due_date" jdbcType="TIMESTAMP" property="dueDate" />
+    <result column="offline_mark" jdbcType="INTEGER" property="offlineMark" />
+    <result column="soft_deleted" jdbcType="INTEGER" property="softDeleted" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, fund_offline_detail_uuid, member_no, product_id, fund_total_amount, total_profit, 
+    create_time, update_time, bonus_total_amount, profit_total_amount, settlement_time, 
+    has_settlement, settlement_capital, offline_code, customer_phone, customer_name, 
+    customer_cardno, product_name, inception_date, due_date, offline_mark, soft_deleted
+  </sql>
+
+  <select id="queryOfflineAssetByMemberNO" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_fund_offline_detail
+    where member_no = #{memberNo,jdbcType=CHAR}
+    and soft_deleted = #{softDeleted,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryOfflineAssetByUuid" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_fund_offline_detail
+    where fund_offline_detail_uuid = #{fundOfflineDetailUuid,jdbcType=CHAR}
+    and soft_deleted = #{softDeleted,jdbcType=INTEGER}
+  </select>
+</mapper>

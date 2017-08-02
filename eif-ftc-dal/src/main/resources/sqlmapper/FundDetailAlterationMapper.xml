@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundDetailAlterationMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundDetailAlteration">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="detail_alteration_uuid" jdbcType="CHAR" property="detailAlterationUuid" />
+    <result column="fund_detail_id" jdbcType="BIGINT" property="fundDetailId" />
+    <result column="fund_detail_uuid" jdbcType="CHAR" property="fundDetailUuid" />
+    <result column="fund_total_id" jdbcType="BIGINT" property="fundTotalId" />
+    <result column="fund_total_uuid" jdbcType="CHAR" property="fundTotalUuid" />
+    <result column="fund_share" jdbcType="DECIMAL" property="fundShare" />
+    <result column="fund_amount" jdbcType="DECIMAL" property="fundAmount" />
+    <result column="alteration_status" jdbcType="INTEGER" property="alterationStatus" />
+    <result column="alteration_type" jdbcType="INTEGER" property="alterationType" />
+    <result column="ftc_order_no" jdbcType="CHAR" property="ftcOrderNo" />
+    <result column="ftc_order_create_time" jdbcType="TIMESTAMP" property="ftcOrderCreateTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+
+  <resultMap id="FundDetailUpdateBeanMap" type="com.eif.ftc.dal.bean.FundDetailUpdateBean">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="fund_detail_uuid" jdbcType="CHAR" property="fundDetailUUID" />
+    <result column="amount" jdbcType="BIGINT" property="amount" />
+  </resultMap>
+
+
+  <resultMap id="FundTotalUpdateBeanMap" type="com.eif.ftc.dal.bean.FundTotalUpdateBean">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="fund_total_uuid" jdbcType="CHAR" property="fundTotalUUID" />
+    <result column="amount" jdbcType="BIGINT" property="amount" />
+  </resultMap>
+
+  <resultMap id="MemberAssetUpdateBeanMap" type="com.eif.ftc.dal.bean.MemberAssetUpdateBean">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="member_asset_uuid" jdbcType="CHAR" property="memberAssetUUID" />
+    <result column="amount" jdbcType="BIGINT" property="amount" />
+  </resultMap>
+
+  <resultMap id="FundDetailGroupOnBeanMap" type="com.eif.ftc.dal.bean.FundDetailGroupOnBean">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="fund_detail_uuid" jdbcType="CHAR" property="fundDetailUUID" />
+    <result column="ftc_order_no" jdbcType="BIGINT" property="ftcOrderNo" />
+  </resultMap>
+
+
+  <resultMap id="ConvertUUIDMap" type="com.eif.ftc.dal.bean.ConvertUUIDBean">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="uuid" jdbcType="CHAR" property="uuid" />
+    <result column="ftc_order_no" jdbcType="BIGINT" property="ftcOrderNo" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, detail_alteration_uuid, fund_detail_id, fund_detail_uuid, fund_total_id, fund_total_uuid, 
+    fund_share, fund_amount, alteration_status, alteration_type, ftc_order_no, ftc_order_create_time, 
+    create_time, update_time
+  </sql>
+  <select id="selectByFTCOrderNo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_fund_detail_alteration
+    where ftc_order_no = #{ftcOrderNo,jdbcType=CHAR}
+    and alteration_status = #{status,jdbcType=INTEGER}
+    for update
+  </select>
+  <select id="selectMemberAssetByFTCOrderNoList" resultMap="MemberAssetUpdateBeanMap" parameterType="java.util.List">
+    select
+    t_amc_fund_total.member_asset_uuid as member_asset_uuid,
+    sum(fund_amount) as amount
+    from t_amc_fund_detail_alteration
+    inner join t_amc_fund_total on t_amc_fund_total.fund_total_uuid = t_amc_fund_detail_alteration.fund_total_uuid
+    where ftc_order_no in
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=CHAR}
+    </foreach>
+    and alteration_status = #{status,jdbcType=INTEGER}
+    group by t_amc_fund_total.member_asset_uuid
+  </select>
+  <select id="selectFundTotalByFTCOrderNoList" resultMap="FundTotalUpdateBeanMap" parameterType="java.util.List">
+    select
+    fund_total_uuid,
+    sum(fund_amount) as amount
+    from t_amc_fund_detail_alteration
+    where ftc_order_no in
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=CHAR}
+    </foreach>
+    and alteration_status = #{status,jdbcType=INTEGER}
+    group by fund_total_uuid
+  </select>
+  <select id="selectFundDetailByFTCOrderNoList" resultMap="FundDetailUpdateBeanMap" parameterType="java.util.List">
+    select
+    fund_detail_uuid,
+    sum(fund_amount) as amount
+    from t_amc_fund_detail_alteration
+    where ftc_order_no in
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=CHAR}
+    </foreach>
+    and alteration_status = #{status,jdbcType=INTEGER}
+    group by fund_detail_uuid
+  </select>
+
+
+
+  <update id="updateFundDetailAlternationStatus" parameterType="java.util.List">
+    update t_amc_fund_detail_alteration
+    <set>
+      alteration_status = #{status,jdbcType=INTEGER},
+      update_time = now()
+    </set>
+    where ftc_order_no in
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=CHAR}
+    </foreach>
+  </update>
+  
+  <select id="selectGroupOnAndDetailMapper" resultMap="FundDetailGroupOnBeanMap" parameterType="java.util.List">
+    select
+    fund_detail_uuid,
+    ftc_order_no
+    from t_amc_fund_detail_alteration
+    where ftc_order_no in
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=CHAR}
+    </foreach>
+  </select>
+
+
+  <select id="mapFtcOrderToDetailUUID" resultMap="ConvertUUIDMap" parameterType="java.util.List">
+    select
+    fund_detail_uuid as uuid,
+    ftc_order_no
+    from t_amc_fund_detail_alteration
+    where ftc_order_no in
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=CHAR}
+    </foreach>
+  </select>
+
+
+  <select id="mapFtcOrderToFundTotalUUID" resultMap="ConvertUUIDMap" parameterType="java.util.List">
+    select
+    t_amc_fund_detail.fund_total_uuid as uuid,
+    t_amc_fund_detail_alteration.ftc_order_no as ftc_order_no
+    from t_amc_fund_detail_alteration
+    inner join t_amc_fund_detail on t_amc_fund_detail.fund_detail_uuid = t_amc_fund_detail_alteration.fund_detail_uuid
+    where t_amc_fund_detail_alteration.ftc_order_no in
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=CHAR}
+    </foreach>
+  </select>
+
+
+
+  <select id="mapFtcOrderToMemberAssetUUID" resultMap="ConvertUUIDMap" parameterType="java.util.List">
+    select
+    t_amc_fund_total.member_asset_uuid as uuid,
+    t_amc_fund_detail_alteration.ftc_order_no as ftc_order_no
+    from t_amc_fund_detail_alteration
+    inner join t_amc_fund_detail on t_amc_fund_detail.fund_detail_uuid = t_amc_fund_detail_alteration.fund_detail_uuid
+    inner join t_amc_fund_total on t_amc_fund_total.fund_total_uuid = t_amc_fund_detail.fund_total_uuid
+    where t_amc_fund_detail_alteration.ftc_order_no in
+    <foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=CHAR}
+    </foreach>
+  </select>
+
+</mapper>

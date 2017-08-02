@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.eif.ftc</groupId>
+		<artifactId>eif-ftc</artifactId>
+		<version>2.5-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>eif-ftc-dal</artifactId>
+	<packaging>jar</packaging>
+	<name>Dal Access Layer</name>
+
+	<dependencies>
+		<!-- 根据需要添加依赖，新依赖请添加到父POM中，切勿直接添加到该文件中 -->
+
+		<!-- ====================self======================== -->
+<!--
+ 		<dependency>
+			<groupId>com.eif.ftc</groupId>
+			<artifactId>eif-ftc-util</artifactId>
+		</dependency>
+-->
+		
+		<!-- ====================eif framework======================== -->
+		<dependency>
+			<groupId>com.eif.framework</groupId>
+			<artifactId>eif-framework-data</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.eif.framework</groupId>
+			<artifactId>eif-framework-mybatis-pagination</artifactId>
+		</dependency>
+
+		<!-- ====================test======================== -->
+		<dependency>
+			<groupId>com.eif.framework</groupId>
+			<artifactId>eif-framework-test</artifactId>
+		</dependency>
+
+		<!-- ====================mybatis======================== -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+		</dependency>
+
+		<!-- ====================druid======================== -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+		</dependency>
+
+		<!-- ====================logback======================== -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+		<!-- ====================slf4j======================== -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<!-- ====================mysql======================== -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!-- ====================mybatis mapper======================== -->
+		<dependency>
+			<groupId>tk.mybatis</groupId>
+			<artifactId>mapper</artifactId>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>mybatis-generator</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mybatis.generator</groupId>
+						<artifactId>mybatis-generator-maven-plugin</artifactId>
+						<version>${mybatis-generator-maven-plugin.version}</version>
+						<configuration>
+							<configurationFile>${basedir}/src/main/resources/generatorConfig.xml</configurationFile>
+							<overwrite>true</overwrite>
+							<verbose>true</verbose>
+						</configuration>
+						<dependencies>
+							<dependency>
+								<groupId>mysql</groupId>
+								<artifactId>mysql-connector-java</artifactId>
+								<version>${mysql.version}</version>
+							</dependency>
+							<dependency>
+								<groupId>tk.mybatis</groupId>
+								<artifactId>mapper</artifactId>
+								<version>${mapper.version}</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+</project>

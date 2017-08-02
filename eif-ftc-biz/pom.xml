@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.eif.ftc</groupId>
+		<artifactId>eif-ftc</artifactId>
+		<version>2.5-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>eif-ftc-biz</artifactId>
+	<packaging>jar</packaging>
+	<name>Biz Layer</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.eif.ftc</groupId>
+			<artifactId>eif-ftc-dal</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.eif.ofc</groupId>
+			<artifactId>eif-ofc-facade</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.eif.ftc</groupId>
+			<artifactId>eif-ftc-integration</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.eif.ftc</groupId>
+			<artifactId>eif-ftc-facade</artifactId>
+		</dependency>
+
+        <dependency>
+            <groupId>com.eif.ftc</groupId>
+            <artifactId>eif-ftc-service</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.eif.ftc</groupId>
+            <artifactId>eif-ftc-util</artifactId>
+        </dependency>
+
+		<dependency>
+			<groupId>com.eif.setting</groupId>
+			<artifactId>eif-setting-facade</artifactId>
+		</dependency>
+
+		<!-- ====================test======================== -->
+		<dependency>
+			<groupId>com.eif.framework</groupId>
+			<artifactId>eif-framework-test</artifactId>
+		</dependency>
+
+		<!-- ==================== zk ==================== -->
+		<dependency>
+			<groupId>com.github.sgroschupf</groupId>
+			<artifactId>zkclient</artifactId>
+		</dependency>
+	</dependencies>
+
+
+</project>

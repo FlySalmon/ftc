@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://code.alibabatech.com/schema/dubbo 
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+       default-lazy-init="false">
+
+    <!-- 生成远程服务代理，可以和本地bean一样使用 -->
+    <dubbo:reference id="memberInnerFacade"
+                     interface="com.eif.member.facade.MemberInnerFacade" check="false"/>
+    <dubbo:reference id="memberFacade"
+                     interface="com.eif.member.facade.MemberFacade" check="false"/>
+    <dubbo:reference id="transactionFacade"
+                     interface="com.eif.transcore.facade.TransactionFacade" check="false"/>
+    <dubbo:reference id="ftcFacade"
+                     interface="com.eif.fis.facade.biz.ftc.FtcFacade" check="false"/>
+    <dubbo:reference id="fisJobFacade"
+                     interface="com.eif.fis.facade.biz.job.FisJobFacade" check="false"/>
+    <dubbo:reference id="contractFtcFacade"
+                     interface="com.eif.contract.facade.biz.ftc.ContractFtcFacade" check="false"/>
+    <dubbo:reference id="mktCouponUseFacade"
+                     interface="com.eif.market.facade.biz.MKTCouponUseFacade" check="false"/>
+    <dubbo:reference id="orderManagementFacade"
+                     interface="com.eif.ofc.facade.OrderManagementFacade" check="false"/>
+    <dubbo:reference id="instrumentFacade"
+                     interface="com.eif.paycore.facade.InstrumentFacade" check="false"/>
+    <dubbo:reference id="fisAmcFacade"
+                     interface="com.eif.fis.facade.biz.amc.AmcFacade" check="false"/>
+    <dubbo:reference id="smsFacade"
+                     interface="com.eif.goutong.facade.sms.SmsFacade" check="false"/>
+    <dubbo:reference id="fisWorkingDayFacade"
+                     interface="com.eif.fis.facade.biz.common.FisWorkingDayFacade" check="false"/>
+    <dubbo:reference id="riskCheckFacade"
+                     interface="com.eif.risk.facade.RiskCheckFacade" check="false"/>
+    <dubbo:reference id="quotaStatFacade"
+                     interface="com.eif.risk.facade.QuotaStatFacade" check="false"/>
+    <dubbo:reference id="errorCountFacade"
+                     interface="com.eif.risk.facade.ErrorCountFacade" check="false"/>
+    <dubbo:reference id="mktGrouponFacade"
+                     interface="com.eif.market.facade.biz.MKTGrouponFacade" check="false"/>
+
+</beans>

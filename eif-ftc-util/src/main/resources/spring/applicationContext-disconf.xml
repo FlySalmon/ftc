@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/jdbc
+	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-lazy-init="false">
+
+	<bean id="disconfMgrBean" class="com.baidu.disconf.client.DisconfMgrBean"
+		destroy-method="destroy">
+		<property name="scanPackage" value="com.eif.ftc.util" />
+	</bean>
+	
+	<bean id="disconfMgrBean2" class="com.baidu.disconf.client.DisconfMgrBeanSecond"
+		init-method="init" destroy-method="destroy">
+	</bean>
+	
+	<!-- 请将所有用到的配置文件都配置到这里，其他地方不要在声明配置文件读取的配置 -->
+	<bean id="configproperties_disconf"
+		class="com.baidu.disconf.client.addons.properties.ReloadablePropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>#{systemProperties['protocol'] ?: 'classpath'}:id.properties</value>
+				<value>#{systemProperties['protocol'] ?: 'classpath'}:jdbc.properties</value>
+				<value>#{systemProperties['protocol'] ?: 'classpath'}:dubbo.properties</value>
+				<value>#{systemProperties['protocol'] ?: 'classpath'}:mq.properties</value>
+				<value>#{systemProperties['protocol'] ?: 'classpath'}:app.properties</value>
+				<value>#{systemProperties['protocol'] ?: 'classpath'}:hades.properties</value>
+				<value>#{systemProperties['protocol'] ?: 'classpath'}:code.properties</value>
+				<value>#{systemProperties['protocol'] ?: 'classpath'}:exchange.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="propertyConfigurer"
+		class="com.baidu.disconf.client.addons.properties.ReloadingPropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="propertiesArray">
+			<list>
+				<ref bean="configproperties_disconf" />
+			</list>
+		</property>
+	</bean>
+</beans>

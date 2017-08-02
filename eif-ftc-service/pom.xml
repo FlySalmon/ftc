@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.eif.ftc</groupId>
+        <artifactId>eif-ftc</artifactId>
+        <version>2.5-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>eif-ftc-service</artifactId>
+    <packaging>jar</packaging>
+    <name>Service Layer</name>
+    <dependencies>
+        <!-- ====================self======================== -->
+        <dependency>
+            <groupId>com.eif.ftc</groupId>
+            <artifactId>eif-ftc-dal</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.ftc</groupId>
+            <artifactId>eif-ftc-util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.ftc</groupId>
+            <artifactId>eif-ftc-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.ftc</groupId>
+            <artifactId>eif-ftc-integration</artifactId>
+        </dependency>
+
+        <!-- ====================depends======================== -->
+        <dependency>
+            <groupId>com.eif.member</groupId>
+            <artifactId>eif-member-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.contract</groupId>
+            <artifactId>eif-contract-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.ofc</groupId>
+            <artifactId>eif-ofc-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.fis</groupId>
+            <artifactId>eif-fis-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.transcore</groupId>
+            <artifactId>eif-transcore-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.paycore</groupId>
+            <artifactId>eif-paycore-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.market</groupId>
+            <artifactId>eif-market-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.goutong</groupId>
+            <artifactId>eif-goutong-facade</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.setting</groupId>
+            <artifactId>eif-setting-facade</artifactId>
+        </dependency>
+
+        <!-- ====================eif framework======================== -->
+        <dependency>
+            <groupId>com.eif.framework</groupId>
+            <artifactId>eif-framework-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.framework</groupId>
+            <artifactId>eif-framework-rpc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.framework</groupId>
+            <artifactId>eif-framework-common-utils</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.framework</groupId>
+            <artifactId>eif-framework-mq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.framework</groupId>
+            <artifactId>eif-framework-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.framework</groupId>
+            <artifactId>eif-framework-job</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.eif.framework</groupId>
+            <artifactId>eif-framework-concurrent</artifactId>
+        </dependency>
+
+        <!-- ====================test======================== -->
+		<dependency>
+			<groupId>com.eif.framework</groupId>
+			<artifactId>eif-framework-test</artifactId>
+		</dependency>
+
+        <!-- ==================== apollo ==================== -->
+        <dependency>
+            <groupId>com.github.knightliao.apollo</groupId>
+            <artifactId>apollo</artifactId>
+        </dependency>
+
+    </dependencies>
+</project>

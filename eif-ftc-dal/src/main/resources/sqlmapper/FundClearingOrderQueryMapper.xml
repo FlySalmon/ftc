@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundClearingOrderQueryMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundClearingOrder">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="fund_clearing_order_no" jdbcType="CHAR" property="fundClearingOrderNo" />
+    <result column="business_order_item_no" jdbcType="CHAR" property="businessOrderItemNo" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="transaction_account_id" jdbcType="CHAR" property="transactionAccountId" />
+    <result column="transaction_cfm_date" jdbcType="CHAR" property="transactionCfmDate" />
+    <result column="currency_type" jdbcType="CHAR" property="currencyType" />
+    <result column="total_frozen_vol" jdbcType="DECIMAL" property="totalFrozenVol" />
+    <result column="fund_vol_balance" jdbcType="DECIMAL" property="fundVolBalance" />
+    <result column="achievement_pay" jdbcType="DECIMAL" property="achievementPay" />
+    <result column="achievement_compen" jdbcType="DECIMAL" property="achievementCompen" />
+    <result column="frozen_balance" jdbcType="DECIMAL" property="frozenBalance" />
+    <result column="confirmed_vol" jdbcType="DECIMAL" property="confirmedVol" />
+    <result column="confirmed_amount" jdbcType="DECIMAL" property="confirmedAmount" />
+    <result column="nav" jdbcType="DECIMAL" property="nav" />
+    <result column="share_class" jdbcType="CHAR" property="shareClass" />
+    <result column="transcore_trans_no" jdbcType="CHAR" property="transcoreTransNo" />
+    <result column="dividend_amount" jdbcType="DECIMAL" property="dividendAmount" />
+    <result column="current_dividend_amount" jdbcType="DECIMAL" property="currentDividendAmount" />
+    <result column="coupon_amount" jdbcType="DECIMAL" property="couponAmount" />
+    <result column="groupon_amount" jdbcType="DECIMAL" property="grouponAmount" />
+    <result column="marketing_discount" jdbcType="DECIMAL" property="marketingDiscount" />
+    <result column="platform_profit" jdbcType="DECIMAL" property="platformProfit" />
+    <result column="external_serial_no" jdbcType="VARCHAR" property="externalSerialNo" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="operator_no" jdbcType="CHAR" property="operatorNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, fund_clearing_order_no, business_order_item_no, product_id, member_no, transaction_account_id, 
+    transaction_cfm_date, currency_type, total_frozen_vol, fund_vol_balance, achievement_pay, 
+    achievement_compen, frozen_balance, confirmed_vol, confirmed_amount, nav, share_class, transcore_trans_no, 
+    dividend_amount, current_dividend_amount, coupon_amount, groupon_amount, marketing_discount, platform_profit,
+    external_serial_no, status, create_time, update_time, operator_no
+  </sql>
+  
+  	<!-- 根据条件查询订单 -->
+	<select id="queryOrder" parameterType="com.eif.ftc.dal.model.FundClearingOrderQueryModel" 
+		resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from t_ftc_fund_clearing
+		where 1=1
+		<if test="businessOrderItemNo != null">
+			and business_order_item_no = #{businessOrderItemNo,jdbcType=CHAR}
+		</if>
+		<if test="fundClearingOrderNo != null">
+			and fund_clearing_order_no = #{fundClearingOrderNo,jdbcType=CHAR}
+		</if>
+		<if test="productId != null">
+			and product_id = #{productId,jdbcType=BIGINT}
+		</if>
+		<if test="memberNo != null">
+			and member_no = #{memberNo,jdbcType=CHAR}
+		</if>
+		<if test="status != null">
+			and status = #{status,jdbcType=INTEGER}
+		</if>
+		<if test="startDateTime != null">
+			and create_time <![CDATA[ >= ]]> #{startDateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateTime != null">
+			and create_time <![CDATA[ <= ]]> #{endDateTime,jdbcType=TIMESTAMP}
+		</if>
+	</select>
+	
+	<!-- 根据业务单号查找订单信息 -->
+	<select id="queryByFundClearingOrderNos" parameterType="java.util.List" 
+		resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from t_ftc_fund_clearing
+		where fund_clearing_order_no in
+			<foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+				#{item, jdbcType=CHAR}
+			</foreach>
+	</select>
+	
+</mapper>

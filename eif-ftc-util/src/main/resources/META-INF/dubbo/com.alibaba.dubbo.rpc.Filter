@@ -1,0 +1,2 @@
+dubboConsumerFilter=com.eif.framework.log.client.dubbo.DubboConsumerFilter
+dubboProviderFilter=com.eif.framework.log.client.dubbo.DubboProviderFilter

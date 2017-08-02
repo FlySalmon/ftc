@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundTransferorOrderMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundTransferorOrder">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="transfer_mode" jdbcType="INTEGER" property="transferMode" />
+    <result column="transfer_transaction_mode" jdbcType="INTEGER" property="transferTransactionMode" />
+    <result column="fund_transferor_order_no" jdbcType="CHAR" property="fundTransferorOrderNo" />
+    <result column="business_order_item_no" jdbcType="CHAR" property="businessOrderItemNo" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="asset_account_no" jdbcType="CHAR" property="assetAccountNo" />
+    <result column="trans_account_no" jdbcType="CHAR" property="transAccountNo" />
+    <result column="transfer_agreement_no" jdbcType="CHAR" property="transferAgreementNo" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="ref_fund_sub_code" jdbcType="CHAR" property="refFundSubCode" />
+    <result column="mkt_product_id" jdbcType="BIGINT" property="mktProductId" />
+    <result column="original_asset_total_value" jdbcType="DECIMAL" property="originalAssetTotalValue" />
+    <result column="original_asset_surplus_value" jdbcType="DECIMAL" property="originalAssetSurplusValue" />
+    <result column="fund_transfer_amount" jdbcType="DECIMAL" property="fundTransferAmount" />
+    <result column="fund_transfer_principal" jdbcType="DECIMAL" property="fundTransferPrincipal" />
+    <result column="fund_transfer_interest" jdbcType="DECIMAL" property="fundTransferInterest" />
+    <result column="discount_amount" jdbcType="DECIMAL" property="discountAmount" />
+    <result column="annual_yield" jdbcType="DECIMAL" property="annualYield" />
+    <result column="transferor_fee" jdbcType="DECIMAL" property="transferorFee" />
+    <result column="transferee_fee" jdbcType="DECIMAL" property="transfereeFee" />
+    <result column="fee_rule" jdbcType="VARCHAR" property="feeRule" />
+    <result column="biz_channel" jdbcType="INTEGER" property="bizChannel" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="ext_field" jdbcType="VARCHAR" property="extField" />
+    <result column="tracking_no" jdbcType="CHAR" property="trackingNo" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
+    <result column="expiry_time" jdbcType="TIMESTAMP" property="expiryTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="operator_no" jdbcType="CHAR" property="operatorNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, transfer_mode, transfer_transaction_mode, fund_transferor_order_no, business_order_item_no, 
+    member_no, asset_account_no, trans_account_no, transfer_agreement_no, product_id, 
+    ref_fund_sub_code, mkt_product_id, original_asset_total_value, original_asset_surplus_value, 
+    fund_transfer_amount, fund_transfer_principal, fund_transfer_interest, discount_amount, 
+    annual_yield, transferor_fee, transferee_fee, fee_rule, biz_channel, status, ext_field, 
+    tracking_no, finish_time, cancel_time, expiry_time, create_time, update_time, remark, 
+    operator_no
+  </sql>
+  
+  <sql id="Key_Column_List">
+    id, fund_transferor_order_no, business_order_item_no, parent_fund_transferor_order_no, origin_fund_transferor_order_no, 
+    member_no, transfer_agreement_no, product_id, mkt_product_id, biz_channel, status, tracking_no, 
+    finish_time, cancel_time, expiry_time, status_expiry_time
+  </sql>
+  
+  <select id="queryCanceledOrders" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Key_Column_List" />
+		FROM t_ftc_fund_transferor_order
+		WHERE 
+			member_no IN
+				<foreach close=")" collection="memberNos" index="index" item="item" open="(" separator=",">
+					#{item,jdbcType=CHAR}
+				</foreach>
+			AND status = #{status,jdbcType=INTEGER}
+			AND cancel_time = #{cancelTime,jdbcType=TIMESTAMP}
+  </select> 
+  
+  <select id="queryByRefFundTransfereeOrderNo" resultMap="BaseResultMap">
+		SELECT 
+			<include refid="Base_Column_List" />
+		FROM t_ftc_fund_transferor_order
+		WHERE  fund_transferor_order_no = (
+			SELECT ref_fund_transferor_order_no 
+			FROM t_ftc_fund_transferee_order
+			WHERE fund_transferee_order_no = #{transfereeOrderNo,jdbcType=CHAR}
+		)
+  </select> 
+  
+  
+</mapper>

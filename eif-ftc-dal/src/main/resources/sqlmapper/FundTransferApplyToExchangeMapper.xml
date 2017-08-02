@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundTransferApplyToExchangeMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundTransferApplyToExchange">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="op_id" jdbcType="CHAR" property="opId" />
+    <result column="fund_transferor_order_no" jdbcType="CHAR" property="fundTransferorOrderNo" />
+    <result column="fund_transferee_order_no" jdbcType="CHAR" property="fundTransfereeOrderNo" />
+    <result column="exchange_transferor_id" jdbcType="VARCHAR" property="exchangeTransferorId" />
+    <result column="exchange_matching_id" jdbcType="VARCHAR" property="exchangeMatchingId" />
+    <result column="exchange_transferee_id" jdbcType="VARCHAR" property="exchangeTransfereeId" />
+    <result column="exchange_prod_no" jdbcType="VARCHAR" property="exchangeProdNo" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="mkt_product_id" jdbcType="BIGINT" property="mktProductId" />
+    <result column="member_no_from" jdbcType="CHAR" property="memberNoFrom" />
+    <result column="member_no_to" jdbcType="CHAR" property="memberNoTo" />
+    <result column="transfer_time" jdbcType="TIMESTAMP" property="transferTime" />
+    <result column="exchange_execution_time" jdbcType="TIMESTAMP" property="exchangeExecutionTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="operator_no" jdbcType="CHAR" property="operatorNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, op_id, fund_transferor_order_no, fund_transferee_order_no, exchange_transferor_id, 
+    exchange_matching_id, exchange_transferee_id, exchange_prod_no, product_id, mkt_product_id, 
+    member_no_from, member_no_to, transfer_time, exchange_execution_time, status, create_time, 
+    update_time, remark, operator_no
+  </sql>
+  
+  <!-- 查询一级市场产品对应的二级市场产品Id -->
+	<select id="queryMktProductIdsByExchangeProdNo" resultType="java.lang.Long">
+		SELECT mkt_product_id
+		FROM t_ftc_fund_transfer_apply_to_exchange
+		WHERE 1=1
+			AND exchange_prod_no = #{exchangeProdNo,jdbcType=CHAR}
+			AND status = 4
+	</select> 
+	
+</mapper>

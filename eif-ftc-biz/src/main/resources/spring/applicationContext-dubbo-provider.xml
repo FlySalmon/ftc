@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://code.alibabatech.com/schema/dubbo 
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+       default-lazy-init="false">
+
+    <dubbo:application name="${dubbo.application.name}" />
+    <dubbo:registry address="${dubbo.registry.address}" />
+    <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}" />
+    <dubbo:monitor protocol="${dubbo.monitor.protocol}" />
+    <dubbo:provider loadbalance="${dubbo.service.loadbalance}" />
+
+    <dubbo:service interface="com.eif.ftc.facade.FundCheckingJobFacade"
+                   ref="fundCheckingJobFacade" retries="0" timeout="15000" delay="-1"/>
+    <bean id="fundCheckingJobFacade"
+          class="com.eif.ftc.biz.facade.impl.fund.job.FundCheckingJobFacadeImpl"/>
+
+
+    <dubbo:service interface="com.eif.ftc.facade.FundOrderScanJobFacade"
+                   ref="fundOrderScanJobFacade" retries="0" timeout="15000" delay="-1"/>
+    <bean id="fundOrderScanJobFacade"
+          class="com.eif.ftc.biz.facade.impl.fund.job.FundOrderScanJobFacadeImpl"/>
+
+    <dubbo:service interface="com.eif.ftc.facade.FundTransFacade"
+                   ref="fundTransFacade" retries="0" timeout="5000" delay="-1">
+        <dubbo:method name="payFundBuyingOrder" timeout="15000" retries="0" />
+        <dubbo:method name="resumePay" timeout="15000" retries="0" />
+    </dubbo:service>
+    <bean id="fundTransFacade"
+          class="com.eif.ftc.biz.facade.impl.fund.trans.FundTransFacadeImpl"/>
+
+    <dubbo:service interface="com.eif.ftc.facade.FundOperFacade"
+                   ref="fundOperFacade" retries="0" timeout="5000" delay="-1"/>
+    <bean id="fundOperFacade" class="com.eif.ftc.biz.facade.impl.fund.oper.FundOperFacadeImpl"/>
+
+    <dubbo:service interface="com.eif.ftc.facade.amc.AMCFacade"
+                   ref="amcFacade" retries="0" timeout="5000" delay="-1"/>
+    <bean id="amcFacade" class="com.eif.ftc.biz.facade.impl.fund.amc.AMCFacadeImpl"/>
+
+    <dubbo:service interface="com.eif.ftc.facade.FundTransferFacade"
+                   ref="fundTransferFacade" retries="0" timeout="5000" delay="-1">
+        <dubbo:method name="payTransfereeOrder" timeout="15000" retries="0" />
+        <dubbo:method name="resumePayTransfereeOrder" timeout="15000" retries="0" />
+    </dubbo:service>
+    <bean id="fundTransferFacade"
+          class="com.eif.ftc.biz.facade.impl.fund.transfer.FundTransferFacadeImpl"/>
+
+    <dubbo:service interface="com.eif.ftc.facade.FundTransferOperFacade"
+                   ref="fundTransferOperFacade" retries="0" timeout="5000" delay="-1"/>
+    <bean id="fundTransferOperFacade" class="com.eif.ftc.biz.facade.impl.fund.transfer.oper.FundTransferOperFacadeImpl"/>
+
+
+</beans>

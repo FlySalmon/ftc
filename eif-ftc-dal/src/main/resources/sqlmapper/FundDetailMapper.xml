@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundDetailMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundDetail">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="fund_detail_uuid" jdbcType="CHAR" property="fundDetailUuid" />
+    <result column="fund_total_id" jdbcType="BIGINT" property="fundTotalId" />
+    <result column="fund_total_uuid" jdbcType="CHAR" property="fundTotalUuid" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="fund_total_share" jdbcType="DECIMAL" property="fundTotalShare" />
+    <result column="fund_total_amount" jdbcType="DECIMAL" property="fundTotalAmount" />
+    <result column="yesterday_profit" jdbcType="DECIMAL" property="yesterdayProfit" />
+    <result column="total_profit" jdbcType="DECIMAL" property="totalProfit" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="frozen_amount" jdbcType="DECIMAL" property="frozenAmount" />
+    <result column="frozen_share" jdbcType="DECIMAL" property="frozenShare" />
+    <result column="confirmed_add_amount" jdbcType="DECIMAL" property="confirmedAddAmount" />
+    <result column="confirmed_add_share" jdbcType="DECIMAL" property="confirmedAddShare" />
+    <result column="unconfirmed_add_amount" jdbcType="DECIMAL" property="unconfirmedAddAmount" />
+    <result column="unconfirmed_add_share" jdbcType="DECIMAL" property="unconfirmedAddShare" />
+    <result column="confirmed_sub_amount" jdbcType="DECIMAL" property="confirmedSubAmount" />
+    <result column="confirmed_sub_share" jdbcType="DECIMAL" property="confirmedSubShare" />
+    <result column="unconfirmed_sub_amount" jdbcType="DECIMAL" property="unconfirmedSubAmount" />
+    <result column="unconfirmed_sub_share" jdbcType="DECIMAL" property="unconfirmedSubShare" />
+    <result column="bonus_total_amount" jdbcType="DECIMAL" property="bonusTotalAmount" />
+    <result column="profit_total_amount" jdbcType="DECIMAL" property="profitTotalAmount" />
+    <result column="expect_bonus_amount" jdbcType="DECIMAL" property="expectBonusAmount" />
+    <result column="settlement_time" jdbcType="TIMESTAMP" property="settlementTime" />
+    <result column="expect_profit_amount" jdbcType="DECIMAL" property="expectProfitAmount" />
+    <result column="has_settlement" jdbcType="INTEGER" property="hasSettlement" />
+    <result column="settlement_capital" jdbcType="DECIMAL" property="settlementCapital" />
+    <result column="groupon_bonus" jdbcType="DECIMAL" property="grouponBonus" />
+    <result column="groupon_type" jdbcType="TINYINT" property="grouponType" />
+    <result column="product_close_type" jdbcType="INTEGER" property="productCloseType" />
+    <result column="half_open_bonus_amount" jdbcType="DECIMAL" property="halfOpenBonusAmount" />
+    <result column="exchange_status" jdbcType="TINYINT" property="exchangeStatus" />
+  </resultMap>
+
+  <resultMap id="FundDetailNeedSendSMSResultMap" type="com.eif.ftc.dal.bean.FundDetailNeedSendMsg">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="fund_detail_uuid" jdbcType="CHAR" property="fundDetailUUID" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="confirmed_add_amount" jdbcType="DECIMAL" property="confirmedAddAmount" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+  </resultMap>
+
+  <resultMap id="MemberCurrentAssetResultMap" type="com.eif.ftc.dal.bean.MemberCurrentAssetBean">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="transaction_account" jdbcType="CHAR" property="transactionAccountId" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="ta_account" jdbcType="CHAR" property="taAccountId" />
+    <result column="confirmed_add_share" jdbcType="DECIMAL" property="confirmedAddShare" />
+    <result column="unconfirmed_sub_share" jdbcType="DECIMAL" property="unconfirmedSubShare" />
+  </resultMap>
+
+  <resultMap id="MemberProductAssetForDividendMap" type="com.eif.ftc.dal.bean.MemberProductAssetForDividend">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="transaction_account" jdbcType="CHAR" property="transactionAccountId" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="ta_account" jdbcType="CHAR" property="taAccountId" />
+    <result column="confirmed_add_share" jdbcType="DECIMAL" property="confirmedAddShare" />
+    <result column="unconfirmed_sub_share" jdbcType="DECIMAL" property="unconfirmedSubShare" />
+    <result column="close_type" jdbcType="INTEGER" property="closeType" />
+    <result column="capital" jdbcType="DECIMAL" property="capital" />
+  </resultMap>
+
+
+  <resultMap id="ProductMemberAssetBeanMap" type="com.eif.ftc.dal.bean.ProductMemberAssetBean">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="transaction_account" jdbcType="CHAR" property="transactionAccountId" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="ta_account" jdbcType="CHAR" property="taAccountId" />
+    <result column="capital" jdbcType="DECIMAL" property="capital" />
+    <result column="expect_bonus_amount" jdbcType="DECIMAL" property="expectBonusAmount" />
+    <result column="coupon_amount" jdbcType="DECIMAL" property="couponAmount" />
+    <result column="groupon_bonus" jdbcType="DECIMAL" property="grouponBonus" />
+    <result column="half_open_bonus_amount" jdbcType="DECIMAL" property="currentBonusAmount" />
+    <result column="close_type" jdbcType="INTEGER" property="closeType" />
+    <result column="asset_account" jdbcType="CHAR" property="assetAccountNo" />
+  </resultMap>
+
+
+  <resultMap id="FundAssetBeanMap" type="com.eif.ftc.dal.bean.FundAssetBean">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="total_amount" jdbcType="DECIMAL" property="totalAmount" />
+    <result column="total_bonus_amount" jdbcType="DECIMAL" property="totalBonusAmount" />
+  </resultMap>
+
+
+
+
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, fund_detail_uuid, fund_total_id, fund_total_uuid, product_id, fund_total_share, 
+    fund_total_amount, yesterday_profit, total_profit, create_time, update_time, frozen_amount, 
+    frozen_share, confirmed_add_amount, confirmed_add_share, unconfirmed_add_amount, 
+    unconfirmed_add_share, confirmed_sub_amount, confirmed_sub_share, unconfirmed_sub_amount, 
+    unconfirmed_sub_share, bonus_total_amount, profit_total_amount, expect_bonus_amount, 
+    settlement_time, expect_profit_amount, has_settlement, settlement_capital, groupon_bonus, 
+    groupon_type, product_close_type, half_open_bonus_amount, exchange_status
+  </sql>
+
+  <select id="selectByTotalUUIDAndProductId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_fund_detail
+    where fund_total_uuid = #{totalUUID,jdbcType=CHAR}
+    and product_id = #{productId,jdbcType=BIGINT}
+  </select>
+  <select id="selectFundListByTotalUUID" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_fund_detail
+    where fund_total_uuid = #{totalUUID,jdbcType=CHAR}
+  </select>
+  <select id="selectByFundDetailUUID" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_fund_detail
+    where fund_detail_uuid = #{fundDetailUUID,jdbcType=CHAR}
+    for update
+  </select>
+
+  <select id="selectInfoByFundDetailUUID" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_fund_detail
+    where fund_detail_uuid = #{fundDetailUUID,jdbcType=CHAR}
+  </select>
+
+  <select id="selectFundAssetInfoByProductId" resultMap="FundAssetBeanMap">
+    select
+    product_id as product_id,
+    sum(settlement_capital) as total_amount,
+    sum(expect_bonus_amount) as total_bonus_amount
+    from t_amc_fund_detail
+    where product_id = #{productId,jdbcType=BIGINT}
+    group by product_id
+  </select>
+
+  <select id="selectMemberFundAssetByProductId" resultMap="ProductMemberAssetBeanMap">
+    SELECT
+	t_amc_mem_fund_acc.transaction_account AS transaction_account ,
+	product_id AS product_id ,
+	t_amc_mem_asset.member_no AS member_no ,
+	t_amc_mem_fund_acc.ta_account AS ta_account ,
+	CASE t_amc_fund_detail.product_close_type
+WHEN 0 THEN
+	0
+ELSE
+	t_amc_fund_detail.settlement_capital
+END AS capital ,
+
+ CASE t_amc_fund_detail.product_close_type
+WHEN 0 THEN
+	0
+ELSE
+	t_amc_fund_detail.expect_bonus_amount
+END AS expect_bonus_amount ,
+
+ t_amc_fund_detail.expect_profit_amount AS coupon_amount ,
+ t_amc_fund_detail.groupon_bonus AS groupon_bonus ,
+ CASE t_amc_fund_detail.product_close_type
+WHEN 0 THEN
+	0
+ELSE
+  t_amc_fund_detail.half_open_bonus_amount
+END AS half_open_bonus_amount ,
+ t_amc_fund_detail.product_close_type AS close_type ,
+ t_amc_mem_asset.member_asset_uuid AS asset_account
+FROM
+	t_amc_fund_detail
+INNER JOIN t_amc_fund_total ON t_amc_fund_total.fund_total_uuid = t_amc_fund_detail.fund_total_uuid
+INNER JOIN t_amc_mem_asset ON t_amc_mem_asset.member_asset_uuid = t_amc_fund_total.member_asset_uuid
+INNER JOIN t_amc_mem_fund_acc ON t_amc_mem_fund_acc.fund_acc_uuid = t_amc_fund_total.fund_acc_uuid
+WHERE 	t_amc_fund_detail.product_id = #{productId,jdbcType=BIGINT} AND t_amc_fund_detail.has_settlement != 2
+  </select>
+
+  <select id="selectByTotalUUIDAndProductIdForUpdate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_fund_detail
+    where fund_total_uuid = #{totalUUID,jdbcType=CHAR}
+    and product_id = #{productId,jdbcType=BIGINT}
+    for update
+  </select>
+
+
+
+  <update id="updateFundDetailBySubscriptionConfirm" parameterType="java.util.List">
+    <foreach close="" collection="fundDetailUpdateBeanList" index="index" item="record" open="" separator=";">
+      update t_amc_fund_detail
+      <set>
+        unconfirmed_add_amount = unconfirmed_add_amount - #{record.amount, jdbcType=DECIMAL},
+        confirmed_add_amount =  confirmed_add_amount + #{record.amount, jdbcType=DECIMAL},
+        groupon_bonus = groupon_bonus + #{record.grouponAmount,jdbcType=DECIMAL},
+        update_time = now()
+      </set>
+      where fund_detail_uuid = #{record.fundDetailUUID,jdbcType=CHAR}
+    </foreach>
+  </update>
+
+  <update id="updateFundDetailByPurchaseConfirm" parameterType="java.util.List">
+    <foreach close="" collection="fundDetailUpdateBeanList" index="index" item="record" open="" separator=";">
+      update t_amc_fund_detail
+      <set>
+        unconfirmed_add_amount = unconfirmed_add_amount - #{record.amount, jdbcType=DECIMAL},
+        confirmed_add_amount =  confirmed_add_amount + #{record.amount, jdbcType=DECIMAL},
+        update_time = now()
+      </set>
+      where fund_detail_uuid = #{record.fundDetailUUID,jdbcType=CHAR}
+    </foreach>
+  </update>
+
+
+  <update id="updateFundDetailByRedemptionConfirm" parameterType="java.util.List">
+    <foreach close="" collection="fundDetailUpdateBeanList" index="index" item="record" open="" separator=";">
+      update t_amc_fund_detail
+      <set>
+        unconfirmed_sub_amount = unconfirmed_sub_amount - #{record.amount, jdbcType=DECIMAL},
+        confirmed_sub_amount =  confirmed_sub_amount + #{record.amount, jdbcType=DECIMAL},
+        fund_total_amount = fund_total_amount - #{record.amount, jdbcType=DECIMAL},
+        update_time = now()
+      </set>
+      where fund_detail_uuid = #{record.fundDetailUUID,jdbcType=CHAR}
+    </foreach>
+  </update>
+
+  <select id="selectFundDetailNeedSendSMSByUUIDList" parameterType="java.util.List" resultMap="FundDetailNeedSendSMSResultMap">
+    select
+    t_amc_fund_detail.fund_detail_uuid as fund_detail_uuid,
+    t_amc_fund_detail.product_id as product_id,
+    t_amc_fund_detail.confirmed_add_amount as confirmed_add_amount,
+    t_amc_mem_asset.member_no as member_no
+    from t_amc_fund_detail
+    inner join t_amc_fund_total on t_amc_fund_total.fund_total_uuid = t_amc_fund_detail.fund_total_uuid
+    inner join t_amc_mem_asset on  t_amc_mem_asset.member_asset_uuid = t_amc_fund_total.member_asset_uuid
+    where t_amc_fund_detail.fund_detail_uuid in
+    <foreach close=")" collection="fundDetailUpdateBeanList" index="index" item="item" open="(" separator=",">
+      #{item.fundDetailUUID, jdbcType=CHAR}
+    </foreach>
+    and t_amc_fund_detail.unconfirmed_add_amount = 0
+  </select>
+
+  <select id="selectAssetByTransAccountAndProductIds" resultMap="MemberCurrentAssetResultMap">
+SELECT
+	t_amc_mem_fund_acc.transaction_account AS transaction_account ,
+	t_amc_fund_detail.product_id AS product_id ,
+	t_amc_mem_fund_acc.member_no AS member_no ,
+	t_amc_mem_fund_acc.ta_account AS ta_account ,
+	t_amc_fund_detail.confirmed_add_amount + t_amc_fund_detail.half_open_bonus_amount AS confirmed_add_share ,
+	t_amc_fund_detail.unconfirmed_sub_amount AS unconfirmed_sub_share
+FROM
+	t_amc_fund_detail
+INNER JOIN t_amc_fund_total ON t_amc_fund_total.id = t_amc_fund_detail.fund_total_id
+INNER JOIN t_amc_mem_fund_acc ON t_amc_mem_fund_acc.id = t_amc_fund_total.fund_acc_id
+WHERE
+	t_amc_mem_fund_acc.transaction_account IN
+    <foreach close=")" collection="transAccountNos" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=CHAR}
+    </foreach>
+AND t_amc_fund_detail.product_id IN
+    <foreach close=")" collection="productIds" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=BIGINT}
+    </foreach>
+  </select>
+
+  <select id="selectAssetDividendByTransAccountList" resultMap="MemberProductAssetForDividendMap">
+    SELECT
+    t_amc_mem_fund_acc.transaction_account AS transaction_account ,
+    t_amc_fund_detail.product_id AS product_id ,
+    t_amc_mem_fund_acc.member_no AS member_no ,
+    t_amc_mem_fund_acc.ta_account AS ta_account ,
+    sum(
+    t_amc_fund_detail.confirmed_add_amount + t_amc_fund_detail.half_open_bonus_amount
+    ) AS confirmed_add_share ,
+    sum(
+    t_amc_fund_detail.unconfirmed_sub_amount
+    ) AS unconfirmed_sub_share ,
+    t_amc_fund_detail.product_close_type AS close_type,
+    t_amc_fund_detail.settlement_capital
+    AS capital
+    FROM
+    t_amc_fund_detail
+    INNER JOIN t_amc_fund_total ON t_amc_fund_total.id = t_amc_fund_detail.fund_total_id
+    INNER JOIN t_amc_mem_fund_acc ON t_amc_mem_fund_acc.id = t_amc_fund_total.fund_acc_id
+    WHERE
+    t_amc_mem_fund_acc.transaction_account IN
+    <foreach close=")" collection="transAccountNos" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=CHAR}
+    </foreach>
+    and (t_amc_fund_detail.confirmed_add_amount + t_amc_fund_detail.half_open_bonus_amount + t_amc_fund_detail.unconfirmed_sub_amount) &gt; 0
+    and t_amc_fund_detail.product_close_type in (0,2,3)
+
+    GROUP BY
+    t_amc_mem_fund_acc.transaction_account ,
+    t_amc_fund_detail.product_id ,
+    t_amc_mem_fund_acc.member_no ,
+    t_amc_mem_fund_acc.ta_account ,
+    t_amc_fund_detail.product_close_type;
+
+
+  </select>
+
+  <update id="updateFundDetailByHalfOpenRedeemConfirm" parameterType="java.util.List">
+    <foreach close="" collection="fundUpdateBeanList" index="index" item="record" open="" separator=";">
+      update t_amc_fund_detail
+      <set>
+        unconfirmed_sub_amount = unconfirmed_sub_amount - #{record.capital, jdbcType=DECIMAL} - #{record.currentBonusAmount, jdbcType=DECIMAL},
+        confirmed_sub_amount =  confirmed_sub_amount + #{record.capital, jdbcType=DECIMAL} + #{record.currentBonusAmount, jdbcType=DECIMAL},
+        update_time = now()
+      </set>
+      where fund_detail_uuid = #{record.uuid,jdbcType=CHAR}
+    </foreach>
+  </update>
+
+
+
+  <select id="selectMemberFundAssetBySecMarketProductIds" resultMap="ProductMemberAssetBeanMap">
+    SELECT
+    t_amc_mem_fund_acc.transaction_account AS transaction_account ,
+    product_id AS product_id ,
+    t_amc_mem_asset.member_no AS member_no ,
+    t_amc_mem_fund_acc.ta_account AS ta_account ,
+    CASE t_amc_fund_detail.product_close_type
+    WHEN 0 THEN
+    0
+    ELSE
+    t_amc_fund_detail.settlement_capital
+    END AS capital ,
+
+    CASE t_amc_fund_detail.product_close_type
+    WHEN 0 THEN
+    0
+    ELSE
+    t_amc_fund_detail.expect_bonus_amount
+    END AS expect_bonus_amount ,
+
+    t_amc_fund_detail.expect_profit_amount AS coupon_amount ,
+    t_amc_fund_detail.groupon_bonus AS groupon_bonus ,
+    CASE t_amc_fund_detail.product_close_type
+    WHEN 0 THEN
+    0
+    ELSE
+    t_amc_fund_detail.half_open_bonus_amount
+    END AS half_open_bonus_amount ,
+    t_amc_fund_detail.product_close_type AS close_type ,
+    t_amc_mem_asset.member_asset_uuid AS asset_account
+    FROM
+    t_amc_fund_detail
+    INNER JOIN t_amc_fund_total ON t_amc_fund_total.fund_total_uuid = t_amc_fund_detail.fund_total_uuid
+    INNER JOIN t_amc_mem_asset ON t_amc_mem_asset.member_asset_uuid = t_amc_fund_total.member_asset_uuid
+    INNER JOIN t_amc_mem_fund_acc ON t_amc_mem_fund_acc.fund_acc_uuid = t_amc_fund_total.fund_acc_uuid
+    WHERE 	t_amc_fund_detail.product_id in
+    <foreach close=")" collection="productIds" index="index" item="item" open="(" separator=",">
+      #{item, jdbcType=BIGINT}
+    </foreach>
+    AND t_amc_fund_detail.has_settlement != 2
+  </select>
+
+</mapper>

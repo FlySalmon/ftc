@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/jdbc
+	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd"
+       default-lazy-init="false">
+
+    <bean id="mqjedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${mqredis.maxIdle}" />
+        <property name="maxTotal" value="${mqredis.maxActive}" />
+        <property name="testOnBorrow" value="${mqredis.testOnBorrow}" />
+        <property name="testOnReturn" value="${mqredis.testOnReturn}" />
+    </bean>
+
+    <bean id="mqhadesClient" class="com.eif.framework.cache.HadesClient">
+        <constructor-arg index="0">
+            <value>${mqhades.zkAddr}</value>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <value>${mqhades.zkSessionTimeoutMs}</value>
+        </constructor-arg>
+        <constructor-arg index="2">
+            <value>${mqhades.zkPath}</value>
+        </constructor-arg>
+        <constructor-arg index="3" ref="mqjedisPoolConfig" />
+        <constructor-arg index="4">
+            <value>${mqhades.keyPrefix}</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="mqCacheManager" class="com.eif.framework.cache.redis.RedisCacheManager">
+        <constructor-arg index="0" ref="mqhadesClient" />
+    </bean>
+
+
+    <bean id="ftcMessageListener" class="com.eif.ftc.biz.mq.listener.FTCMessageListener">
+        <property name="retryTimes" value="3" />
+        <property name="cacheManager" ref="mqCacheManager" />
+        <property name="consumerGroup" value="${mq.consumer.consumerGroup}"/>
+    </bean>    
+    
+    <bean id="com.eif.transcore.facade.mq.MQTransConstants.TOPIC_CREATE_TRANS_RESPONSE"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+    <bean id="com.eif.transcore.facade.mq.MQTransConstants.TOPIC_TRANS_STATUS"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+    <bean id="com.eif.setting.facade.constant.MQTopicConst.TOPIC_SETTING_CUS_TRANS_COLLECTOR_RESPONSE"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+    <bean id="com.eif.setting.facade.constant.MQTopicConst.TOPIC_SETTING_TRANS_REFUND_RESULE"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+    <bean id="com.eif.ftc.facade.mq.dto.topic.MQTopic.TOPIC_SETTING_TRANS_UNFIX_RESULT"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+    <bean id="com.eif.risk.facade.constant.MQTopicName.USER_BLOCKING_NOTIFY"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+    <bean id="com.eif.transcore.facade.mq.MQTransConstants.TOPIC_TRANS_BATCH_REPORT_EVENT_RESPONSE"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+    <bean id="com.eif.ftc.facade.mq.dto.topic.MQTopic.TOPIC_NOTIFY_SIGN_CONTRACT_RESULT"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+    <bean id="com.eif.ftc.facade.mq.dto.topic.MQTopic.TOPIC_NOTIFY_SIGN_TRANSFEROR_AGREEMENT_RESULT"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+    <bean id="com.eif.ftc.facade.mq.dto.topic.MQTopic.TOPIC_NOTIFY_SIGN_TRANSFEREE_AGREEMENT_RESULT"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+    <bean id="com.eif.fis.facade.constant.MqTopic.CREATE_SEC_MARKET_PRODUCT_RESULT"
+          class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>
+
+    <!--<bean id="com.eif.ftc.facade.mq.dto.topic.MQTopic.TOPIC_NOTIFY_SPV_WINDUP"-->
+          <!--class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"></bean>-->
+
+    <bean id="transCoreRMQPushConsumer" class="com.eif.framework.mq.DefaultRMQPushConsumer">
+        <property name="namesrvAddr" value="${mq.consumer.namesrvAddr}"/>
+        <property name="consumerGroup" value="${mq.consumer.consumerGroup}"/>
+        <property name="messageListener" ref="ftcMessageListener"/>
+        <property name="topics">
+            <map>
+                <entry key-ref="com.eif.transcore.facade.mq.MQTransConstants.TOPIC_CREATE_TRANS_RESPONSE" value=""/>
+                <entry key-ref="com.eif.transcore.facade.mq.MQTransConstants.TOPIC_TRANS_STATUS" value=""/>
+            	<entry key-ref="com.eif.setting.facade.constant.MQTopicConst.TOPIC_SETTING_CUS_TRANS_COLLECTOR_RESPONSE" value=""/>
+            	<entry key-ref="com.eif.setting.facade.constant.MQTopicConst.TOPIC_SETTING_TRANS_REFUND_RESULE" value=""/>
+            	<entry key-ref="com.eif.ftc.facade.mq.dto.topic.MQTopic.TOPIC_SETTING_TRANS_UNFIX_RESULT" value=""/>
+            	<entry key-ref="com.eif.risk.facade.constant.MQTopicName.USER_BLOCKING_NOTIFY" value=""/>
+                <entry key-ref="com.eif.transcore.facade.mq.MQTransConstants.TOPIC_TRANS_BATCH_REPORT_EVENT_RESPONSE" value=""/>
+            	<entry key-ref="com.eif.ftc.facade.mq.dto.topic.MQTopic.TOPIC_NOTIFY_SIGN_CONTRACT_RESULT" value=""/>
+            	<entry key-ref="com.eif.ftc.facade.mq.dto.topic.MQTopic.TOPIC_NOTIFY_SIGN_TRANSFEROR_AGREEMENT_RESULT" value=""/>
+            	<entry key-ref="com.eif.ftc.facade.mq.dto.topic.MQTopic.TOPIC_NOTIFY_SIGN_TRANSFEREE_AGREEMENT_RESULT" value=""/>
+            	<entry key-ref="com.eif.fis.facade.constant.MqTopic.CREATE_SEC_MARKET_PRODUCT_RESULT" value=""/>
+            </map>
+        </property>
+    </bean>
+
+</beans>

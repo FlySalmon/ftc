@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundAcctOrderMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundAcctOrder">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="asset_account_no" jdbcType="CHAR" property="assetAccountNo" />
+    <result column="fund_acct_order_no" jdbcType="CHAR" property="fundAcctOrderNo" />
+    <result column="fund_trans_acct_no" jdbcType="CHAR" property="fundTransAcctNo" />
+    <result column="ref_fund_trans_order_no" jdbcType="CHAR" property="refFundTransOrderNo" />
+    <result column="fund_acct_oper_type" jdbcType="INTEGER" property="fundAcctOperType" />
+    <result column="tracking_no" jdbcType="CHAR" property="trackingNo" />
+    <result column="ref_fund_business_code" jdbcType="CHAR" property="refFundBusinessCode" />
+    <result column="biz_channel" jdbcType="INTEGER" property="bizChannel" />
+    <result column="fund_interact_type" jdbcType="INTEGER" property="fundInteractType" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="total_expiry_time" jdbcType="TIMESTAMP" property="totalExpiryTime" />
+    <result column="cur_status_expiry_time" jdbcType="TIMESTAMP" property="curStatusExpiryTime" />
+    <result column="ref_app_sheet_serial_no" jdbcType="CHAR" property="refAppSheetSerialNo" />
+    <result column="ext_info_order_no" jdbcType="CHAR" property="extInfoOrderNo" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="ext_field" jdbcType="VARCHAR" property="extField" />
+    <result column="trans_time" jdbcType="TIMESTAMP" property="transTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="operator_no" jdbcType="CHAR" property="operatorNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, member_no, product_id, asset_account_no, fund_acct_order_no, fund_trans_acct_no, 
+    ref_fund_trans_order_no, fund_acct_oper_type, tracking_no, ref_fund_business_code, 
+    biz_channel, fund_interact_type, status, total_expiry_time, cur_status_expiry_time, 
+    ref_app_sheet_serial_no, ext_info_order_no, remark, ext_field, trans_time, create_time, 
+    update_time, operator_no
+  </sql>
+  
+	<sql id="TA_Order_Column_List">
+	    id, member_no, product_id, asset_account_no, fund_acct_order_no, fund_trans_acct_no, 
+	    tracking_no, biz_channel, status, ref_app_sheet_serial_no, trans_time, operator_no
+	</sql>
+	<!-- 查询开户信息 -->
+	<select id="queryTAFundCreateAcctOrderBetweenDate" resultMap="BaseResultMap">
+		SELECT
+		<include refid="TA_Order_Column_List" />
+		FROM t_ftc_fund_acct_order
+		WHERE status = #{status,jdbcType=INTEGER} AND fund_acct_oper_type = 0
+			AND trans_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}
+			AND trans_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}
+	</select>
+	<!-- 批量更新TA信息 -->
+	<update id="batchUpdateTAInfo" parameterType="java.util.List">
+		<foreach close="" collection="list" index="index" item="record" open="" separator=";">
+			update t_ftc_fund_acct_order
+			<set>
+				<if test="record.refAppSheetSerialNo != null">
+					ref_app_sheet_serial_no = #{record.refAppSheetSerialNo, jdbcType=CHAR},
+				</if>
+				<if test="record.status != null">
+					status = #{record.status,jdbcType=INTEGER},
+				</if>
+				update_time = now()
+			</set>
+			where id = #{record.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+	<!-- 根据外部单号查找订单信息 -->
+	<select id="selectByTaSerialNo" parameterType="java.util.List" resultMap="BaseResultMap">
+		select
+		<include refid="TA_Order_Column_List" />
+		from t_ftc_fund_acct_order
+		where ref_app_sheet_serial_no in
+		<foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+			#{item, jdbcType=CHAR}
+		</foreach>
+	</select>
+
+</mapper>

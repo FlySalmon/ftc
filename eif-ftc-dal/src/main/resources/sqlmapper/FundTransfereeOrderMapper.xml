@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundTransfereeOrderMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundTransfereeOrder">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="fund_transferee_order_no" jdbcType="CHAR" property="fundTransfereeOrderNo" />
+    <result column="business_order_item_no" jdbcType="CHAR" property="businessOrderItemNo" />
+    <result column="ref_fund_transferor_order_no" jdbcType="CHAR" property="refFundTransferorOrderNo" />
+    <result column="ref_origin_fund_transferor_order_no" jdbcType="CHAR" property="refOriginFundTransferorOrderNo" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="asset_account_no" jdbcType="CHAR" property="assetAccountNo" />
+    <result column="trans_account_no" jdbcType="CHAR" property="transAccountNo" />
+    <result column="transfer_agreement_no" jdbcType="CHAR" property="transferAgreementNo" />
+    <result column="mkt_product_id" jdbcType="BIGINT" property="mktProductId" />
+    <result column="fund_transfer_amount" jdbcType="DECIMAL" property="fundTransferAmount" />
+    <result column="discount_amount" jdbcType="DECIMAL" property="discountAmount" />
+    <result column="fee" jdbcType="DECIMAL" property="fee" />
+    <result column="pay_method" jdbcType="VARCHAR" property="payMethod" />
+    <result column="pay_method_desc" jdbcType="VARCHAR" property="payMethodDesc" />
+    <result column="currency_type" jdbcType="CHAR" property="currencyType" />
+    <result column="frozen_token" jdbcType="CHAR" property="frozenToken" />
+    <result column="transcore_trans_no" jdbcType="CHAR" property="transcoreTransNo" />
+    <result column="transfer_trans_no" jdbcType="CHAR" property="transferTransNo" />
+    <result column="contract_no" jdbcType="CHAR" property="contractNo" />
+    <result column="biz_channel" jdbcType="INTEGER" property="bizChannel" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="ext_field" jdbcType="VARCHAR" property="extField" />
+    <result column="tracking_no" jdbcType="CHAR" property="trackingNo" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="expiry_time" jdbcType="TIMESTAMP" property="expiryTime" />
+    <result column="status_expiry_time" jdbcType="TIMESTAMP" property="statusExpiryTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="operator_no" jdbcType="CHAR" property="operatorNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, fund_transferee_order_no, business_order_item_no, ref_fund_transferor_order_no, 
+    ref_origin_fund_transferor_order_no, member_no, asset_account_no, trans_account_no, 
+    transfer_agreement_no, mkt_product_id, fund_transfer_amount, discount_amount, fee, 
+    pay_method, pay_method_desc, currency_type, frozen_token, transcore_trans_no, transfer_trans_no, 
+    contract_no, biz_channel, status, ext_field, tracking_no, pay_time, finish_time, 
+    expiry_time, status_expiry_time, create_time, update_time, remark, operator_no
+  </sql>
+  
+</mapper>

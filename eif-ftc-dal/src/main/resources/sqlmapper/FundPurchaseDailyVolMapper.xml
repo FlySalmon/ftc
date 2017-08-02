@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundPurchaseDailyVolMapper">
+    <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundPurchaseDailyVol">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+        <result column="amount" jdbcType="DECIMAL" property="amount"/>
+        <result column="shares" jdbcType="DECIMAL" property="shares"/>
+        <result column="record_time" jdbcType="TIMESTAMP" property="recordTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbggenerated
+        -->
+        id, product_id, amount, shares, record_time
+    </sql>
+
+    <update id="updateAmountForLimitation">
+            UPDATE t_ftc_fund_purchase_daily_vol
+            SET amount=amount+#{amount,jdbcType=DECIMAL}, record_time=#{dailyDate,jdbcType=TIMESTAMP}
+            WHERE amount+#{amount,jdbcType=DECIMAL} <![CDATA[ <= ]]> #{limitation,jdbcType=DECIMAL}
+            AND product_id=#{productId,jdbcType=BIGINT}
+            AND record_time=#{dailyDate,jdbcType=TIMESTAMP}
+    </update>
+    <insert id="updateSharesForLimitation">
+            UPDATE t_ftc_fund_purchase_daily_vol
+            SET shares=shares+#{shares, jdbcType=DECIMAL}, record_time=#{dailyDate,jdbcType=TIMESTAMP}
+            WHERE shares+#{shares,jdbcType=DECIMAL} <![CDATA[ <= ]]> #{limitation,jdbcType=DECIMAL}
+            AND product_id=#{productId,jdbcType=BIGINT}
+            AND record_time=#{dailyDate,jdbcType=TIMESTAMP}
+    </insert>
+    <update id="deductShares">
+        UPDATE t_ftc_fund_purchase_daily_vol
+        SET shares = shares - #{fundTransShares,jdbcType=DECIMAL}
+        WHERE product_id =#{productId,jdbcType=BIGINT}
+              AND record_time =#{dailyDate,jdbcType=TIMESTAMP}
+    </update>
+    <update id="deductAmount">
+        UPDATE t_ftc_fund_purchase_daily_vol
+        SET amount = amount - #{fundTransAmount,jdbcType=DECIMAL}
+        WHERE product_id =#{productId,jdbcType=BIGINT}
+              AND record_time =#{dailyDate,jdbcType=TIMESTAMP}
+    </update>
+    <insert id="insertAmount">
+        INSERT IGNORE INTO t_ftc_fund_purchase_daily_vol (
+        product_id, amount, record_time)
+        VALUES (#{productId,jdbcType=BIGINT},
+        #{fundTransAmount,jdbcType=DECIMAL},
+        #{dailyDate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertShares">
+        INSERT IGNORE INTO t_ftc_fund_purchase_daily_vol (
+            product_id, shares, record_time)
+        VALUES (#{productId,jdbcType=BIGINT},
+        #{fundTransShares,jdbcType=DECIMAL},
+        #{dailyDate,jdbcType=TIMESTAMP})
+    </insert>
+</mapper>

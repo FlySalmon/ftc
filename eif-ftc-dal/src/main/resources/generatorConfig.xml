@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry location="/Users/Matt/.evergrande_m2/Repository/mysql/mysql-connector-java/5.1.25/mysql-connector-java-5.1.25.jar"/>
+    <context id="ftc" targetRuntime="MyBatis3" defaultModelType="flat">
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+            <property name="caseSensitive" value="true"/>
+        </plugin>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="false"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/eif_ftc" userId="root"
+                        password="12345678"/>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.eif.ftc.dal.model"
+                            targetProject="src/main/java"/>
+        <sqlMapGenerator targetPackage="sqlmapper"
+                         targetProject="src/main/resources">
+        </sqlMapGenerator>
+        <javaClientGenerator targetPackage="com.eif.ftc.dal.dao"
+                             targetProject="src/main/java" type="XMLMAPPER">
+        </javaClientGenerator>
+
+        <!--<table tableName="t_ftc_fund_acct_order" domainObjectName="FundAcctOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_acct_order_status_info"-->
+        <!--domainObjectName="FundAcctOrderStatusInfo">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_checking_acct_order"-->
+        <!--domainObjectName="TAFundCheckingAcctOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_clearing_order"-->
+        <!--domainObjectName="TAFundClearingOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_create_acct_cfm_order"-->
+        <!--domainObjectName="TAFundCreateAcctCfmOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_create_acct_order"-->
+        <!--domainObjectName="TAFundCreateAcctOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_dividend_order"-->
+        <!--domainObjectName="TAFundDividendOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_purchasing_order"-->
+        <!--domainObjectName="TAFundPurchasingOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_purchasing_cfm_order"-->
+        <!--domainObjectName="TAFundPurchasingCfmOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_redeeming_cfm_order"-->
+        <!--domainObjectName="TAFundRedeemingCfmOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_redeeming_order"-->
+        <!--domainObjectName="TAFundRedeemingOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_subscribing_cfm_order"-->
+        <!--domainObjectName="TAFundSubscribingCfmOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_subscribing_order"-->
+        <!--domainObjectName="TAFundSubscribingOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_ta_fund_subscribing_result_order"-->
+        <!--domainObjectName="TAFundSubscribingResultOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_trans_order" domainObjectName="FundTransOrder">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_trans_order_status_info"-->
+        <!--domainObjectName="FundTransOrderStatusInfo">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_personal_purchase_daily_vol"-->
+        <!--domainObjectName="FundPersonalPurchaseDailyVol">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_purchase_daily_vol"-->
+        <!--domainObjectName="FundPurchaseDailyVol">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_personal_redeem_daily_vol"-->
+        <!--domainObjectName="FundPersonalRedeemDailyVol">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_buying_member" domainObjectName="FundBuyingMember">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_clearing" domainObjectName="FundClearingOrder">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_dividend" domainObjectName="FundDividendOrder">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_clearing_status_info" domainObjectName="FundClearingOrderStatusInfo">-->
+        <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_personal_purchase_vol" domainObjectName="FundPersonalPurchaseVol">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+ 		<!--<table tableName="t_ftc_batch_confirm_failure_detail" domainObjectName="BatchConfirmFailureDetail">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_batch_apply_failure_detail" domainObjectName="BatchApplyFailureDetail">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_batch_task_log" domainObjectName="BatchTaskLog">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+
+
+        <!--<table tableName="t_amc_fund_bonus_detail_alteration" domainObjectName="FundBonusDetailAlteration">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_amc_fund_detail_alteration" domainObjectName="FundDetailAlteration">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_amc_fund_detail" domainObjectName="FundDetail">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_amc_fund_detail_sheet" domainObjectName="FundDetailSheet">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_amc_fund_detail_sheet_sum" domainObjectName="FundDetailSheetSum">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_amc_fund_profit_alteration" domainObjectName="FundProfitAlteration">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_amc_fund_total" domainObjectName="FundTotal">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_amc_mem_asset" domainObjectName="MemberAsset">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_amc_mem_fund_acc" domainObjectName="MemberFundAccount">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_trans_order_exception" domainObjectName="FundTransOrderException">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="t_ftc_fund_trans_order_daily_summary"-->
+        	<!--domainObjectName="FundTransOrderDailySummary">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_dividend_status_info"-->
+        	<!--domainObjectName="FundDividendOrderStatusInfo">-->
+        	<!--<generatedKey column="id" sqlStatement="JDBC" />-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_fund_trans_order_status"-->
+        	<!--domainObjectName="FundTransOrderStatus">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_amc_fund_offline_detail"-->
+               <!--domainObjectName="FundOfflineDetail">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!--<table tableName="t_ftc_outer_order_rel"-->
+               <!--domainObjectName="OuterOrderRel">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        
+        
+        <!--<table tableName="t_ftc_fund_transferor_order" domainObjectName="FundTransferorOrder">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!---->
+        <!--<table tableName="t_ftc_fund_transferor_order_status_info" domainObjectName="FundTransferorOrderStatusInfo">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!---->
+        <!--<table tableName="t_ftc_fund_transferee_order" domainObjectName="FundTransfereeOrder">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!---->
+        <!--<table tableName="t_ftc_fund_transferee_order_status_info" domainObjectName="FundTransfereeOrderStatusInfo">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!---->
+        <!--<table tableName="t_ftc_fund_transfer_apply_to_exchange" domainObjectName="FundTransferApplyToExchange">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+        <!---->
+        <!--<table tableName="t_ftc_fund_transfer_apply_to_exchange_status_info" domainObjectName="FundTransferApplyToExchangeStatusInfo">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+    </context>
+</generatorConfiguration>

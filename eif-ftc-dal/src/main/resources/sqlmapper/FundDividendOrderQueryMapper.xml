@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundDividendOrderQueryMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundDividendOrder">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="fund_dividend_order_no" jdbcType="CHAR" property="fundDividendOrderNo" />
+    <result column="business_order_item_no" jdbcType="CHAR" property="businessOrderItemNo" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="transaction_account_id" jdbcType="CHAR" property="transactionAccountId" />
+    <result column="ta_account_id" jdbcType="CHAR" property="taAccountId" />
+    <result column="transaction_cfm_date" jdbcType="CHAR" property="transactionCfmDate" />
+    <result column="confirmed_amount" jdbcType="DECIMAL" property="confirmedAmount" />
+    <result column="charge" jdbcType="DECIMAL" property="charge" />
+    <result column="agency_fee" jdbcType="DECIMAL" property="agencyFee" />
+    <result column="transfer_fee" jdbcType="DECIMAL" property="transferFee" />
+    <result column="share_class" jdbcType="CHAR" property="shareClass" />
+    <result column="draw_bonus_unit" jdbcType="DECIMAL" property="drawBonusUnit" />
+    <result column="dividend_type" jdbcType="CHAR" property="dividendType" />
+    <result column="achievement_pay" jdbcType="DECIMAL" property="achievementPay" />
+    <result column="achievement_compen" jdbcType="DECIMAL" property="achievementCompen" />
+    <result column="currency_type" jdbcType="CHAR" property="currencyType" />
+    <result column="basisfor_calculating_dividend" jdbcType="DECIMAL" property="basisforCalculatingDividend" />
+    <result column="divident_date" jdbcType="CHAR" property="dividentDate" />
+    <result column="vol_of_dividend_for_reinvestment" jdbcType="DECIMAL" property="volOfDividendForReinvestment" />
+    <result column="dividend_amount" jdbcType="DECIMAL" property="dividendAmount" />
+    <result column="xr_rate" jdbcType="CHAR" property="xrRate" />
+    <result column="registration_date" jdbcType="CHAR" property="registrationDate" />
+    <result column="dividend_per_unit" jdbcType="DECIMAL" property="dividendPerUnit" />
+    <result column="def_dividend_method" jdbcType="CHAR" property="defDividendMethod" />
+    <result column="transcore_trans_no" jdbcType="CHAR" property="transcoreTransNo" />
+    <result column="external_serial_no" jdbcType="VARCHAR" property="externalSerialNo" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="operator_no" jdbcType="CHAR" property="operatorNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, fund_dividend_order_no, business_order_item_no, product_id, member_no, transaction_account_id, 
+    ta_account_id, transaction_cfm_date, confirmed_amount, charge, agency_fee, transfer_fee, share_class, 
+    draw_bonus_unit, dividend_type, achievement_pay, achievement_compen, currency_type, 
+    basisfor_calculating_dividend, divident_date, vol_of_dividend_for_reinvestment, dividend_amount, 
+    xr_rate, registration_date, dividend_per_unit, def_dividend_method, transcore_trans_no, 
+    external_serial_no, status, create_time, update_time, operator_no
+  </sql>
+  
+  	<!-- 根据条件查询订单 -->
+	<select id="queryOrder" parameterType="com.eif.ftc.dal.model.FundDividendOrderQueryModel" 
+		resultMap="BaseResultMap">
+		select
+			<include refid="Base_Column_List" />
+		from t_ftc_fund_dividend
+		where 1=1
+		<if test="businessOrderItemNo != null">
+			and business_order_item_no = #{businessOrderItemNo,jdbcType=CHAR}
+		</if>
+		<if test="fundDividendOrderNo != null">
+			and fund_dividend_order_no = #{fundDividendOrderNo,jdbcType=CHAR}
+		</if>
+		<if test="productId != null">
+			and product_id = #{productId,jdbcType=BIGINT}
+		</if>
+		<if test="memberNo != null">
+			and member_no = #{memberNo,jdbcType=CHAR}
+		</if>
+		<if test="transactionAccountId != null">
+			and transaction_account_id = #{transactionAccountId,jdbcType=CHAR}
+		</if>
+		<if test="status != null">
+			and status = #{status,jdbcType=INTEGER}
+		</if>
+		<if test="startDateTime != null">
+			and create_time <![CDATA[ >= ]]> #{startDateTime,jdbcType=TIMESTAMP}
+		</if>
+		<if test="endDateTime != null">
+			and create_time <![CDATA[ <= ]]> #{endDateTime,jdbcType=TIMESTAMP}
+		</if>
+	</select>
+	
+</mapper>

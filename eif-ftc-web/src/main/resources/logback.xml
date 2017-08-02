@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.contrib.json.classic.JsonLayout">
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 请配置成实际目录，建议/usr/local/logback/sysName/app.log -->
+        <file>~/log/web/ftc/app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>~/log/web/ftc/app.log.%d.gz</fileNamePattern>
+            <maxHistory>14</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+           <layout class="com.eif.framework.log.client.logback.layout.JsonLayout">
+                <jsonFormatter
+                        class="com.eif.framework.log.client.logback.JacksonJsonFormatterEx">
+                </jsonFormatter>
+                <timestampFormat>yyyy-MM-dd'T'HH:mm:ss.SSSZ</timestampFormat>
+                <includeContextName>false</includeContextName>
+                <includeMessage>false</includeMessage>
+                <appendLineSeparator>true</appendLineSeparator>
+            </layout>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>1000</queueSize>
+        <appender-ref ref="FILE" />
+    </appender>
+
+    <root level="ERROR">
+        <appender-ref ref="FILE" />
+    </root>
+
+    <logger name="com.eif" level="INFO" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+</configuration>

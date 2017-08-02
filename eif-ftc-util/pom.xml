@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.eif.ftc</groupId>
+		<artifactId>eif-ftc</artifactId>
+		<version>2.5-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<artifactId>eif-ftc-util</artifactId>
+	<packaging>jar</packaging>
+	<name>Utility Library</name>
+	<dependencies>
+		<!-- 根据需要添加依赖，新依赖请添加到父POM中，切勿直接添加到该文件中 -->
+
+		<!-- ====================self======================== -->
+		<!-- <dependency> <groupId>com.eif.xxx</groupId> <artifactId>eif-xxx-util</artifactId> 
+			</dependency> -->
+
+		<!-- ====================eif framework======================== -->
+		<!-- ==================== eif ==================== -->
+		<dependency>
+			<groupId>com.eif.framework</groupId>
+			<artifactId>eif-framework-config</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.eif.framework</groupId>
+			<artifactId>eif-framework-common-utils</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.eif.framework</groupId>
+					<artifactId>eif-framework-mybatis-pagination</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.eif.framework</groupId>
+			<artifactId>eif-framework-log</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.sun.jersey</groupId>
+					<artifactId>jersey-client</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- ==================== spring ==================== -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+
+		<!-- ==================== logback ==================== -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+
+		<!-- ==================== slf4j ==================== -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+
+		<!-- ====================test======================== -->
+		<dependency>
+			<groupId>com.eif.framework</groupId>
+			<artifactId>eif-framework-test</artifactId>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.TAFundCheckingAcctOrderMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.TAFundCheckingAcctOrder">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="available_vol" jdbcType="DECIMAL" property="availableVol" />
+    <result column="total_vol_of_dist_in_ta" jdbcType="DECIMAL" property="totalVolOfDistInTa" />
+    <result column="transaction_account_id" jdbcType="CHAR" property="transactionAccountId" />
+    <result column="distributor_code" jdbcType="CHAR" property="distributorCode" />
+    <result column="branch_code" jdbcType="CHAR" property="branchCode" />
+    <result column="fund_code" jdbcType="CHAR" property="fundCode" />
+    <result column="ta_account_id" jdbcType="CHAR" property="taAccountId" />
+    <result column="transaction_cfm_date" jdbcType="CHAR" property="transactionCfmDate" />
+    <result column="share_class" jdbcType="CHAR" property="shareClass" />
+    <result column="detail_flag" jdbcType="CHAR" property="detailFlag" />
+    <result column="undistribute_monetary_income" jdbcType="DECIMAL" property="undistributeMonetaryIncome" />
+    <result column="undistribute_monetary_income_flag" jdbcType="CHAR" property="undistributeMonetaryIncomeFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, available_vol, total_vol_of_dist_in_ta, transaction_account_id, distributor_code, 
+    branch_code, fund_code, ta_account_id, transaction_cfm_date, share_class, detail_flag, 
+    undistribute_monetary_income, undistribute_monetary_income_flag
+  </sql>
+</mapper>

@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.FundTransOrderMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.FundTransOrder">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="fund_trans_order_no" jdbcType="CHAR" property="fundTransOrderNo" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="asset_account_no" jdbcType="CHAR" property="assetAccountNo" />
+    <result column="ref_fund_account_no" jdbcType="CHAR" property="refFundAccountNo" />
+    <result column="trans_account_no" jdbcType="CHAR" property="transAccountNo" />
+    <result column="parent_fund_trans_order_no" jdbcType="CHAR" property="parentFundTransOrderNo" />
+    <result column="ref_fund_trans_order_no" jdbcType="CHAR" property="refFundTransOrderNo" />
+    <result column="transcore_trans_no" jdbcType="CHAR" property="transcoreTransNo" />
+    <result column="is_adjusted" jdbcType="BIT" property="isAdjusted" />
+    <result column="trigger_reason" jdbcType="INTEGER" property="triggerReason" />
+    <result column="business_order_item_no" jdbcType="CHAR" property="businessOrderItemNo" />
+    <result column="order_no" jdbcType="CHAR" property="orderNo" />
+    <result column="tracking_no" jdbcType="CHAR" property="trackingNo" />
+    <result column="product_id" jdbcType="BIGINT" property="productId" />
+    <result column="mer_member_no" jdbcType="CHAR" property="merMemberNo" />
+    <result column="contract_no" jdbcType="CHAR" property="contractNo" />
+    <result column="fund_trans_type" jdbcType="INTEGER" property="fundTransType" />
+    <result column="fund_trans_amount" jdbcType="DECIMAL" property="fundTransAmount" />
+    <result column="fund_trans_shares" jdbcType="DECIMAL" property="fundTransShares" />
+    <result column="discount_amount" jdbcType="DECIMAL" property="discountAmount" />
+    <result column="currency_type" jdbcType="CHAR" property="currencyType" />
+    <result column="ref_fund_code" jdbcType="CHAR" property="refFundCode" />
+    <result column="ref_fund_sub_code" jdbcType="CHAR" property="refFundSubCode" />
+    <result column="ref_fund_business_code" jdbcType="CHAR" property="refFundBusinessCode" />
+    <result column="biz_channel" jdbcType="INTEGER" property="bizChannel" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="fund_interact_type" jdbcType="INTEGER" property="fundInteractType" />
+    <result column="frozen_code" jdbcType="CHAR" property="frozenCode" />
+    <result column="total_expiry_time" jdbcType="TIMESTAMP" property="totalExpiryTime" />
+    <result column="cur_status_expiry_time" jdbcType="TIMESTAMP" property="curStatusExpiryTime" />
+    <result column="ref_app_sheet_serial_no" jdbcType="CHAR" property="refAppSheetSerialNo" />
+    <result column="ext_info_order_no" jdbcType="CHAR" property="extInfoOrderNo" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="ext_field" jdbcType="VARCHAR" property="extField" />
+    <result column="trans_time" jdbcType="TIMESTAMP" property="transTime" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="finish_time" jdbcType="TIMESTAMP" property="finishTime" />
+    <result column="refund_time" jdbcType="TIMESTAMP" property="refundTime" />
+    <result column="cancel_time" jdbcType="TIMESTAMP" property="cancelTime" />
+    <result column="refund_amount_limit" jdbcType="DECIMAL" property="refundAmountLimit" />
+    <result column="refund_amount" jdbcType="DECIMAL" property="refundAmount" />
+    <result column="refund_fee_amount" jdbcType="DECIMAL" property="refundFeeAmount" />
+    <result column="to_fee" jdbcType="DECIMAL" property="toFee" />
+    <result column="from_fee" jdbcType="DECIMAL" property="fromFee" />
+    <result column="fee_method" jdbcType="INTEGER" property="feeMethod" />
+    <result column="operator_no" jdbcType="CHAR" property="operatorNo" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eif.ftc.dal.model.FundTransOrder">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <result column="pay_method" jdbcType="LONGVARCHAR" property="payMethod" />
+    <result column="pay_method_desc" jdbcType="LONGVARCHAR" property="payMethodDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, fund_trans_order_no, member_no, asset_account_no, ref_fund_account_no, trans_account_no, 
+    parent_fund_trans_order_no, ref_fund_trans_order_no, transcore_trans_no, is_adjusted, 
+    trigger_reason, business_order_item_no, order_no, tracking_no, product_id, mer_member_no, 
+    contract_no, fund_trans_type, fund_trans_amount, fund_trans_shares, discount_amount, 
+    currency_type, ref_fund_code, ref_fund_sub_code, ref_fund_business_code, biz_channel, 
+    status, fund_interact_type, frozen_code, total_expiry_time, cur_status_expiry_time, 
+    ref_app_sheet_serial_no, ext_info_order_no, remark, ext_field, trans_time, create_time, 
+    update_time, finish_time, refund_time, cancel_time, refund_amount_limit, refund_amount, 
+    refund_fee_amount, to_fee, from_fee, fee_method, operator_no
+  </sql>
+  <sql id="Blob_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    pay_method, pay_method_desc
+  </sql>
+
+	<sql id="TA_Order_Column_List">
+	    id, fund_trans_order_no, member_no, asset_account_no, ref_fund_account_no, trans_account_no, 
+	    transcore_trans_no, business_order_item_no, product_id, mer_member_no, contract_no,
+	    fund_trans_type, fund_trans_amount, fund_trans_shares, discount_amount, currency_type, ref_fund_code,
+	    ref_fund_sub_code, biz_channel, status, ref_app_sheet_serial_no, refund_amount, ext_field, trans_time, 
+	    create_time, finish_time, operator_no
+	</sql>
+	
+	<!-- 查询交易单数量 -->
+	<select id="selectOrderCount" resultType="java.lang.Integer">
+		SELECT COUNT(1)
+		FROM t_ftc_fund_trans_order
+		WHERE 
+				trans_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}
+			AND trans_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}
+			<if test="transTypeList != null">
+			AND fund_trans_type IN
+				<foreach close=")" collection="transTypeList" index="index" item="item" open="(" separator=",">
+					#{item,jdbcType=INTEGER}
+				</foreach>
+			</if>
+			AND status = #{status,jdbcType=INTEGER}
+	</select> 
+	<!-- 查询交易单 TODO改非null-->
+	<select id="queryTATransOrder" resultMap="ResultMapWithBLOBs">
+		SELECT
+		<include refid="TA_Order_Column_List" />
+		FROM t_ftc_fund_trans_order
+		WHERE
+				trans_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}
+			AND trans_time <![CDATA[ < ]]> #{endDate,jdbcType=TIMESTAMP}
+		<if test="typeList != null">
+			AND fund_trans_type IN
+			<foreach close=")" collection="typeList" index="index" item="item" open="(" separator=",">
+				#{item,jdbcType=INTEGER}
+			</foreach>
+		</if>
+		<if test="statusList != null">
+			AND status IN
+			<foreach close=")" collection="statusList" index="index" item="item" open="(" separator=",">
+				#{item,jdbcType=INTEGER}
+			</foreach>
+		</if>
+	</select>
+	<!-- 查询定期产品交易单 TODO改非null-->
+	<select id="queryProductOrder" resultMap="ResultMapWithBLOBs">
+		SELECT
+			<include refid="TA_Order_Column_List" />
+		FROM t_ftc_fund_trans_order
+		WHERE
+			product_id = #{productId,jdbcType=BIGINT}
+	</select>
+	<!-- 查询定期产品交易单 TODO改非null-->
+	<select id="queryOrderByProductAndStatus" resultMap="ResultMapWithBLOBs">
+		SELECT
+			<include refid="TA_Order_Column_List" />
+		FROM t_ftc_fund_trans_order
+		WHERE
+			product_id = #{productId,jdbcType=BIGINT} AND status = #{status,jdbcType=INTEGER}
+	</select>
+	<!-- 批量更新信息 -->
+	<update id="batchUpdateOrder" parameterType="java.util.List">
+		<foreach close="" collection="list" index="index" item="record" open="" separator=";">
+			update t_ftc_fund_trans_order
+			<set>
+				<if test="record.refAppSheetSerialNo != null">
+					ref_app_sheet_serial_no = #{record.refAppSheetSerialNo,jdbcType=CHAR},
+				</if>
+				<if test="record.refFundAccountNo != null">
+					ref_fund_account_no = #{record.refFundAccountNo,jdbcType=CHAR},
+				</if>
+				<if test="record.transAccountNo != null">
+					trans_account_no = #{record.transAccountNo,jdbcType=CHAR},
+				</if>
+				<if test="record.refFundCode != null">
+					ref_fund_code = #{record.refFundCode,jdbcType=CHAR},
+				</if>
+				<if test="record.refFundSubCode != null">
+					ref_fund_sub_code = #{record.refFundSubCode,jdbcType=CHAR},
+				</if>
+				<if test="record.fundTransShares != null">
+					fund_trans_shares = #{record.fundTransShares,jdbcType=CHAR},
+				</if>
+				<if test="record.status != null">
+					status = #{record.status,jdbcType=INTEGER},
+				</if>
+				<if test="record.finishTime != null">
+					finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+				</if>
+				update_time = now()
+			</set>
+			where id = #{record.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+	<update id="batchUpdateContract" parameterType="java.util.List">
+		<foreach close="" collection="list" index="index" item="record" open="" separator=";">
+			update t_ftc_fund_trans_order
+			<set>
+				<if test="record.contractNo != null">
+					contract_no = #{record.contractNo,jdbcType=CHAR},
+				</if>
+				update_time = now()
+			</set>
+			where id = #{record.id,jdbcType=BIGINT}
+		</foreach>
+	</update>
+	<update id="batchUpdateForExpiredTimer" parameterType="java.util.List">
+		<foreach close="" collection="list" index="index" item="record" open="" separator=";">
+			update t_ftc_fund_trans_order
+			<set>
+				<if test="record.updateTime != null">
+					update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+				</if>
+				<if test="record.status != null">
+					status = #{record.status,jdbcType=INTEGER},
+				</if>
+				<if test="record.finishTime != null">
+					finish_time = #{record.finishTime,jdbcType=TIMESTAMP},
+				</if>
+			</set>
+			where id = #{record.id,jdbcType=BIGINT} and status = 5
+		</foreach>
+	</update>
+	
+	<!-- 根据外部单号查找订单信息 -->
+	<select id="selectByTaSerialNo" parameterType="java.util.List" resultMap="ResultMapWithBLOBs">
+		select
+			<include refid="TA_Order_Column_List" />
+		from t_ftc_fund_trans_order
+		where ref_app_sheet_serial_no in
+			<foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+				#{item, jdbcType=CHAR}
+			</foreach>
+	</select>
+	
+	<select id="selectByTranscoreTransNo" parameterType="java.util.List" resultMap="ResultMapWithBLOBs">
+		select
+			<include refid="TA_Order_Column_List" />
+		from t_ftc_fund_trans_order
+		where transcore_trans_no in
+			<foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+				#{item, jdbcType=CHAR}
+			</foreach>
+	</select>
+	
+	<select id="selectByFundTransOrderNo" parameterType="java.util.List" resultMap="ResultMapWithBLOBs">
+		select
+			<include refid="TA_Order_Column_List" />
+		from t_ftc_fund_trans_order
+		where fund_trans_order_no in
+			<foreach close=")" collection="list" index="index" item="item" open="(" separator=",">
+				#{item, jdbcType=CHAR}
+			</foreach>
+	</select>
+	
+	<!-- 根据产品ID、交易账号查询信息 -->
+	<select id="queryOrderByProductAndTransAccount" resultMap="ResultMapWithBLOBs">
+		select
+			<include refid="TA_Order_Column_List" />
+		from t_ftc_fund_trans_order
+		where product_id = #{productId,jdbcType=BIGINT} and status = 9
+			and trans_account_no in
+			<foreach close=")" collection="transAccList" index="index" item="item" open="(" separator=",">
+				#{item, jdbcType=CHAR}
+			</foreach>
+	</select>
+	<!-- 根据产品ID、会员号查询信息 -->
+	<select id="queryOrderByProductAndMemberNo" resultMap="ResultMapWithBLOBs">
+		select
+			<include refid="TA_Order_Column_List" />
+		from t_ftc_fund_trans_order
+		where product_id = #{productId,jdbcType=BIGINT} and status = 9
+			and member_no in
+			<foreach close=")" collection="memberNoList" index="index" item="item" open="(" separator=",">
+				#{item, jdbcType=CHAR}
+			</foreach>
+	</select>
+	<!-- 获取用户申购单中的产品信息 -->
+	<select id="queryTATransOrderFundInfoByTypeAndMembers" resultMap="ResultMapWithBLOBs">
+		select
+			member_no,ref_fund_code,ref_fund_sub_code,product_id
+		from t_ftc_fund_trans_order
+		where fund_trans_type = #{transType,jdbcType=INTEGER} and status = 9
+			and member_no in
+			<foreach close=")" collection="memberNos" index="index" item="item" open="(" separator=",">
+				#{item, jdbcType=CHAR}
+			</foreach>
+		group by member_no,ref_fund_code,ref_fund_sub_code
+	</select>
+	
+	<!-- 查询交易单 导流数据-->
+	<select id="queryTransOrderDiversionData" resultType="com.eif.ftc.dal.model.FundTransOrderDiversionData">
+		SELECT
+			member_no as memberNo, sum(fund_trans_amount) as totalAmount
+		FROM t_ftc_fund_trans_order
+		WHERE
+				trans_time <![CDATA[ >= ]]> #{startDate,jdbcType=TIMESTAMP}
+			AND trans_time <![CDATA[ <= ]]> #{endDate,jdbcType=TIMESTAMP}
+		<if test="typeList != null">
+			AND fund_trans_type IN
+			<foreach close=")" collection="typeList" index="index" item="item" open="(" separator=",">
+				#{item,jdbcType=INTEGER}
+			</foreach>
+		</if>
+		<if test="statusList != null">
+			AND status IN
+			<foreach close=")" collection="statusList" index="index" item="item" open="(" separator=",">
+				#{item,jdbcType=INTEGER}
+			</foreach>
+		</if>
+		GROUP BY member_no
+	</select>
+	
+	<!-- 查询大额投资用户 -->
+	<select id="queryLargeInvestmentClinets" resultType="java.lang.String">
+		SELECT
+			DISTINCT(member_no) AS memberNo
+		FROM t_ftc_fund_trans_order
+		WHERE fund_trans_amount > #{largeInvestorThreshold, jdbcType=DECIMAL}
+			AND fund_trans_type IN 
+			<foreach close=")" collection="transTypeList" index="index" item="item" open="(" separator=",">
+				#{item, jdbcType=INTEGER}
+			</foreach>
+			AND status IN (6, 8, 9, 11)
+			<if test="memberNos != null">
+				AND member_no IN
+				<foreach close=")" collection="memberNos" index="index" item="item" open="(" separator=",">
+					#{item, jdbcType=CHAR}
+				</foreach>
+			</if>
+	</select>
+	
+	<!-- 查询用户投资额 -->
+	<select id="queryFriendsInvestment" resultType="com.eif.ftc.dal.bean.MemberInvestmentBean">
+		SELECT
+			member_no AS memberNo,fund_trans_type AS fundTransType,SUM(fund_trans_amount) AS amount
+		FROM t_ftc_fund_trans_order
+		WHERE 
+				fund_trans_type=#{transType, jdbcType=INTEGER}
+			AND status IN (6, 11, 8, 9)
+			AND trans_time BETWEEN #{startDt, jdbcType=TIMESTAMP} AND #{endDt, jdbcType=TIMESTAMP}
+			<if test="productIds != null">
+				AND product_id IN
+				<foreach close=")" collection="productIds" index="index" item="item" open="(" separator=",">
+					#{item, jdbcType=BIGINT}
+				</foreach>
+			</if>
+			<if test="memberNos != null">
+				AND member_no IN
+				<foreach close=")" collection="memberNos" index="index" item="item" open="(" separator=",">
+					#{item, jdbcType=CHAR}
+				</foreach>
+			</if>
+		GROUP BY member_no,fund_trans_type
+	</select>
+	
+	<!-- 查询用户投资的产品  -->
+	<select id="queryMemberProductIds" resultType="java.lang.Long">
+		SELECT
+			distinct product_id
+		FROM t_ftc_fund_trans_order
+		WHERE 
+				fund_trans_type=#{transType, jdbcType=INTEGER}
+			AND status IN (6, 11, 8, 9)
+			AND trans_time BETWEEN #{startDt, jdbcType=TIMESTAMP} AND #{endDt, jdbcType=TIMESTAMP}
+			<if test="memberNos != null">
+				AND member_no IN
+				<foreach close=")" collection="memberNos" index="index" item="item" open="(" separator=",">
+					#{item, jdbcType=CHAR}
+				</foreach>
+			</if>
+	</select>
+	
+	<!-- 根据产品和会员号查找订单中的会员对应信息 -->
+	<select id="queryMemberCurrentFundInfo" resultMap="ResultMapWithBLOBs">
+		select
+			member_no,contract_no,ref_fund_code,ref_fund_sub_code
+		from t_ftc_fund_trans_order
+		where fund_trans_type = 2 and status = 9 and product_id = #{productId,jdbcType=BIGINT}
+			and member_no in
+			<foreach close=")" collection="memberNoList" index="index" item="item" open="(" separator=",">
+				#{item, jdbcType=CHAR}
+			</foreach>
+		group by member_no
+	</select>
+	
+	<!-- 批量插入记录  -->
+  	<insert id="batchInsertOrder" parameterType="java.util.List">
+	  	insert ignore into t_ftc_fund_trans_order (
+	    	fund_trans_order_no, member_no, asset_account_no, ref_fund_account_no, trans_account_no, 
+	    	parent_fund_trans_order_no, ref_fund_trans_order_no, transcore_trans_no, is_adjusted, 
+	    	trigger_reason, business_order_item_no, order_no, tracking_no, product_id, mer_member_no, 
+	    	contract_no, fund_trans_type, fund_trans_amount, fund_trans_shares, discount_amount, 
+	    	currency_type, ref_fund_code, ref_fund_sub_code, ref_fund_business_code, biz_channel, 
+	    	status, fund_interact_type, frozen_code, total_expiry_time, cur_status_expiry_time, 
+	    	ref_app_sheet_serial_no, ext_info_order_no, remark, ext_field, trans_time, create_time, 
+	    	update_time, finish_time, refund_time, cancel_time, refund_amount_limit, refund_amount, 
+	    	refund_fee_amount, to_fee, from_fee, fee_method, operator_no
+	  	)   
+	    values
+	    <foreach collection="list" index="index" item="record" separator=",">
+	   	(
+	   		#{record.fundTransOrderNo,jdbcType=CHAR},
+	        #{record.memberNo,jdbcType=CHAR},
+	        #{record.assetAccountNo,jdbcType=CHAR},
+	        #{record.refFundAccountNo,jdbcType=CHAR},
+	        #{record.transAccountNo,jdbcType=CHAR},
+	        #{record.parentFundTransOrderNo,jdbcType=CHAR},
+	        #{record.refFundTransOrderNo,jdbcType=CHAR},
+	        #{record.transcoreTransNo,jdbcType=CHAR},
+	        #{record.isAdjusted,jdbcType=BIT},
+	        #{record.triggerReason,jdbcType=INTEGER},
+	        #{record.businessOrderItemNo,jdbcType=CHAR},
+	        #{record.orderNo,jdbcType=CHAR},
+	        #{record.trackingNo,jdbcType=CHAR},
+	        #{record.productId,jdbcType=BIGINT},
+	        #{record.merMemberNo,jdbcType=CHAR},
+	        #{record.contractNo,jdbcType=CHAR},
+	        #{record.fundTransType,jdbcType=INTEGER},
+	        #{record.fundTransAmount,jdbcType=DECIMAL},
+	        #{record.fundTransShares,jdbcType=DECIMAL},
+	        #{record.discountAmount,jdbcType=DECIMAL},
+	        #{record.currencyType,jdbcType=CHAR},
+	        #{record.refFundCode,jdbcType=CHAR},
+	        #{record.refFundSubCode,jdbcType=CHAR},
+	        #{record.refFundBusinessCode,jdbcType=CHAR},
+	        #{record.bizChannel,jdbcType=INTEGER},
+	        #{record.status,jdbcType=INTEGER},
+	        #{record.fundInteractType,jdbcType=INTEGER},
+	        #{record.frozenCode,jdbcType=CHAR},
+	        #{record.totalExpiryTime,jdbcType=TIMESTAMP},
+	        #{record.curStatusExpiryTime,jdbcType=TIMESTAMP},
+	        #{record.refAppSheetSerialNo,jdbcType=CHAR},
+	        #{record.extInfoOrderNo,jdbcType=CHAR},
+	        #{record.remark,jdbcType=VARCHAR},
+	        #{record.extField,jdbcType=VARCHAR},
+			now(),
+			now(),
+			now(),
+	        #{record.finishTime,jdbcType=TIMESTAMP},
+	        #{record.refundTime,jdbcType=TIMESTAMP},
+	        #{record.cancelTime,jdbcType=TIMESTAMP},
+	        #{record.refundAmountLimit,jdbcType=DECIMAL},
+	        #{record.refundAmount,jdbcType=DECIMAL},
+	        #{record.refundFeeAmount,jdbcType=DECIMAL},
+	        #{record.toFee,jdbcType=DECIMAL},
+	        #{record.fromFee,jdbcType=DECIMAL},
+	        #{record.feeMethod,jdbcType=INTEGER},
+	        #{record.operatorNo,jdbcType=CHAR}
+	    )
+	    </foreach> 
+  </insert>
+  
+</mapper>

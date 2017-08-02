@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eif.ftc.dal.dao.MemberAssetMapper">
+  <resultMap id="BaseResultMap" type="com.eif.ftc.dal.model.MemberAsset">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="member_asset_uuid" jdbcType="CHAR" property="memberAssetUuid" />
+    <result column="member_no" jdbcType="CHAR" property="memberNo" />
+    <result column="channel_no" jdbcType="INTEGER" property="channelNo" />
+    <result column="total_asset" jdbcType="DECIMAL" property="totalAsset" />
+    <result column="yesterday_profit" jdbcType="DECIMAL" property="yesterdayProfit" />
+    <result column="total_profit" jdbcType="DECIMAL" property="totalProfit" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="frozen_amount" jdbcType="DECIMAL" property="frozenAmount" />
+    <result column="frozen_share" jdbcType="DECIMAL" property="frozenShare" />
+    <result column="confirmed_add_amount" jdbcType="DECIMAL" property="confirmedAddAmount" />
+    <result column="confirmed_add_share" jdbcType="DECIMAL" property="confirmedAddShare" />
+    <result column="unconfirmed_add_amount" jdbcType="DECIMAL" property="unconfirmedAddAmount" />
+    <result column="unconfirmed_add_share" jdbcType="DECIMAL" property="unconfirmedAddShare" />
+    <result column="confirmed_sub_amount" jdbcType="DECIMAL" property="confirmedSubAmount" />
+    <result column="confirmed_sub_share" jdbcType="DECIMAL" property="confirmedSubShare" />
+    <result column="unconfirmed_sub_amount" jdbcType="DECIMAL" property="unconfirmedSubAmount" />
+    <result column="unconfirmed_sub_share" jdbcType="DECIMAL" property="unconfirmedSubShare" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbggenerated
+    -->
+    id, member_asset_uuid, member_no, channel_no, total_asset, yesterday_profit, total_profit, 
+    create_time, update_time, frozen_amount, frozen_share, confirmed_add_amount, confirmed_add_share, 
+    unconfirmed_add_amount, unconfirmed_add_share, confirmed_sub_amount, confirmed_sub_share, 
+    unconfirmed_sub_amount, unconfirmed_sub_share
+  </sql>
+  <select id="selectByMemberNoAndChannel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_mem_asset
+    where member_no = #{memberNo,jdbcType=CHAR}
+    and channel_no = #{channel,jdbcType=INTEGER}
+  </select>
+  <select id="selectByMemberAssetUUID" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_mem_asset
+    where member_asset_uuid = #{memberAssetUUID,jdbcType=CHAR}
+  </select>
+  <select id="selectForUpdateByMemberNoAndChannel" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_mem_asset
+    where member_no = #{memberNo,jdbcType=CHAR}
+    and channel_no = #{channel,jdbcType=INTEGER}
+    for update
+  </select>
+
+  <select id="selectByMemberAssetUUIDForUpdate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_amc_mem_asset
+    where member_asset_uuid = #{memberAssetUUID,jdbcType=CHAR}
+    for update
+  </select>
+
+  <update id="updateMemberAssetBySubscriptionConfirm" parameterType="java.util.List">
+    <foreach close="" collection="memberAssetUpdateBeanList" index="index" item="record" open="" separator=";">
+      update t_amc_mem_asset
+      <set>
+        unconfirmed_add_amount = unconfirmed_add_amount - #{record.amount, jdbcType=DECIMAL},
+        confirmed_add_amount =  confirmed_add_amount + #{record.amount, jdbcType=DECIMAL},
+        update_time = now()
+      </set>
+      where member_asset_uuid = #{record.memberAssetUUID,jdbcType=CHAR}
+    </foreach>
+  </update>
+
+
+
+  <update id="updateMemberAssetByPurchaseConfirm" parameterType="java.util.List">
+    <foreach close="" collection="memberAssetUpdateBeanList" index="index" item="record" open="" separator=";">
+      update t_amc_mem_asset
+      <set>
+        unconfirmed_add_amount = unconfirmed_add_amount - #{record.amount, jdbcType=DECIMAL},
+        confirmed_add_amount =  confirmed_add_amount + #{record.amount, jdbcType=DECIMAL},
+        update_time = now()
+      </set>
+      where member_asset_uuid = #{record.memberAssetUUID,jdbcType=CHAR}
+    </foreach>
+  </update>
+
+
+  <update id="updateMemberAssetByRedemptionConfirm" parameterType="java.util.List">
+    <foreach close="" collection="memberAssetUpdateBeanList" index="index" item="record" open="" separator=";">
+      update t_amc_mem_asset
+      <set>
+        unconfirmed_sub_amount = unconfirmed_sub_amount - #{record.amount, jdbcType=DECIMAL},
+        confirmed_sub_amount = confirmed_sub_amount + #{record.amount, jdbcType=DECIMAL},
+        total_asset = total_asset - #{record.amount, jdbcType=DECIMAL},
+        update_time = now()
+      </set>
+      where member_asset_uuid = #{record.memberAssetUUID,jdbcType=CHAR}
+    </foreach>
+  </update>
+  <update id="updateMemberAssetByRedemption" parameterType="java.util.List">
+     <foreach close="" collection="redemptionRecord" index="index" item="record" open="" separator=";">
+        update t_amc_mem_asset
+       <set>
+          unconfirmed_sub_amount = unconfirmed_sub_amount + #{record.amount, jdbcType=DECIMAL},
+          confirmed_add_amount =  confirmed_add_amount - #{record.amount, jdbcType=DECIMAL},
+          update_time = now()
+       </set>
+       where member_asset_uuid = #{record.memberAssetUUID,jdbcType=CHAR}
+     </foreach>
+   </update>
+
+
+  <update id="updateMemberAssetByHalfOpenRedeemConfirm" parameterType="java.util.List">
+    <foreach close="" collection="fundUpdateBeanList" index="index" item="record" open="" separator=";">
+      update t_amc_mem_asset
+      <set>
+        unconfirmed_sub_amount = unconfirmed_sub_amount - #{record.capital, jdbcType=DECIMAL},
+        confirmed_sub_amount = confirmed_sub_amount + #{record.capital, jdbcType=DECIMAL},
+        update_time = now()
+      </set>
+      where member_asset_uuid = #{record.uuid,jdbcType=CHAR}
+    </foreach>
+  </update>
+
+</mapper>

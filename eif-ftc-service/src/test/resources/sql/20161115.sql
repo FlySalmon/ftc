@@ -1,0 +1,1 @@
+ALTER TABLE t_amc_fund_detail ADD COLUMN `groupon_type` tinyint(4) NOT NULL DEFAULT 0 ;
